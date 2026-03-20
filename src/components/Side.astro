@@ -1,19 +1,125 @@
 ---
+import lupa from '../assets/lupa.png';
+import accion from '../assets/accion.png';
+import comedia from '../assets/comedia.png';
+import terror from '../assets/terror.png';
+import romance from '../assets/romance.png';
+import infantil from '../assets/infantil.png';
+import historico from '../assets/historico.png';
 ---
 <aside class="preferencias">
-	<header></header>
+	<header>
+        <p>Indica tus preferencias</p>
+    </header>
+    <div class="soloparaqueencaje">
+    <input type="text" placeholder="Buscar" id="buscador", class = "buscador">
+    <img src={lupa.src} class="lupa">
+    </div>
+    <article class="generos">
+        <header>
+            <p>Filtrar por género</p>
+        </header>
+        <main class="filtro">
+            <section>
+                <img src={accion.src} alt="Acción">
+                <p>Acción</p>
+            </section>
+            <section>
+                <img src={comedia.src} alt="Comedia">
+                <p>Comedia</p>
+            </section>
+            <section>
+                <img src={terror.src} alt="Terror">
+                <p>Terror</p>
+            </section>
+            <section>
+                <img src={romance.src} alt="Romance">
+                <p>Romance</p>
+            </section>
+            <section>
+                <img src={infantil.src} alt="Infantil">
+                <p>Infantil</p>
+            </section>
+            <section>
+                <img src={historico.src} alt="Histórico">
+                <p>Histórico</p>
+            </section>
+        </main>
+
+    </article>
 </aside>
 
 <style>
 	.preferencias{
 		height: 100vh;
 		background-color: #282828;
-		width: 40%;
+		width: 32%;
+        padding-left: 4%;
+        padding-right: 4%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 	}
 	.preferencias header{
 		width: 100%;
 		height: 10%;
 		border-bottom-color: #808080;
-		border-bottom-width: 100px;
+		border-bottom-width: 1px;
+        border-bottom-style: solid;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 	}
+    .preferencias header p{
+        color: white;  
+        font-family: 'Roboto', sans-serif;
+        font-size: 35px;
+    }
+    .buscador{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        width: 50%;
+        aspect-ratio: 6/1;
+        font-size: 20px;
+        border-radius: 9999999px;
+        padding-left: 12%;
+        border-style: solid;
+        border-color: #808080;
+    }
+    .lupa{
+        position: absolute;
+        width: 2%;
+        margin-left: 0.7%;
+        filter: invert(0.7);
+        transform: scaleX(-1);
+    }
+    .soloparaqueencaje{
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+    .filtro{
+        width: 100%;
+        height: flex;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 2%;
+    }
+    .filtro section{
+        width: 45%;
+        margin-bottom: 1%;
+        display: flex;
+        flex-direction: column;
+    }
+    .filtro section p{
+        margin: 0;
+        color: white;
+    }
+    .filtro section img{
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: cover;
+    }
 </style>
