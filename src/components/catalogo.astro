@@ -1,0 +1,82 @@
+---
+---
+<main class="ctlg">
+    <section class="sc" id="sc">
+        <header>
+            <p>Mi lista</p>
+        </header>
+        <main></main>
+    </section>
+    <section class="sc" id="sc">
+        <header>
+            <p>Para toda la familia</p>
+        </header>
+        <main> </main>
+    </section>
+    <section class="sc" id="sc">
+        <header>
+            <p>Mas populares</p>
+        </header>
+        <main></main>
+    </section>
+    <section class="sc" id="sc">
+        <header>
+            <p>Clasicos</p>
+        </header>
+        <main></main>
+    </section>
+</main>
+<style>
+
+.ctlg{
+    flex: 1;
+    background-color: rgb(54, 54, 54);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.sc{
+    width: 90%;
+    height: 20%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #909090;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+.sc header{
+    width: 100%;
+    height: 20%;
+    margin-bottom: 2%;
+}
+.sc header p{
+    color: white;
+    font-size: 20px;
+    margin: 0;
+    margin-left: 1%;
+}
+.sc main{
+    width: 99%;
+    height: 79%;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    overflow-x: scroll;
+}
+.sc main::-webkit-scrollbar {
+    display: none;
+}
+.sc main img{
+    width: 10%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-left: 2%;
+    margin-right: 2%;
+    }
+</style>

@@ -4,19 +4,18 @@ import background2 from '../assets/background2.png';
 ---
 
 	<header class="header">
+		<div class="OscEd">
+			<input type="checkbox" id="modoOscuro"> <p>Modo oscuro</p>
+		</div>
 		<img id="background" src={background2.src} alt="" fetchpriority="high" />
 		<h1>Bienvenido</h1>
 		<h3>Aquí encontrarás todas las películas que necesitas</h3>
-		<div class="OscEd">
-			
-		</div>
 	</header>
 
 <style>
 	*{
 		margin: 0;}
 	.header{
-		flex: 1;
 		height: 25vh;
 		display: flex;
 		flex-direction: column;
@@ -38,5 +37,21 @@ import background2 from '../assets/background2.png';
 		opacity: 0.5;
 		filter: blur(3px);
 	}
-
+	.OscEd{
+		width: 110px;
+		aspect-ratio: 16/5;
+		background-color: #282828;
+		position: absolute;
+		top: 0;
+		right: 0;
+		border-bottom-left-radius: 9999px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.OscEd p {
+		font-size: small;
+		white-space: nowrap;
+		color: white
+	}
 </style>
