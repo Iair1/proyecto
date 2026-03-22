@@ -5,25 +5,25 @@
         <header>
             <p>Mi lista</p>
         </header>
-        <main></main>
+        <main id="MiLista"> </main>
     </section>
     <section class="sc" id="sc">
         <header>
             <p>Para toda la familia</p>
         </header>
-        <main> </main>
+        <main id="ParaTodaLaFamilia"> </main>
     </section>
     <section class="sc" id="sc">
         <header>
             <p>Mas populares</p>
         </header>
-        <main></main>
+        <main id="MasPopulares"></main>
     </section>
     <section class="sc" id="sc">
         <header>
             <p>Clasicos</p>
         </header>
-        <main></main>
+        <main id="Clasicos"></main>
     </section>
 </main>
 <style>
@@ -64,19 +64,25 @@
     height: 79%;
     margin-bottom: 1%;
     display: flex;
-    justify-content: space-around;
     align-items: center;
     overflow-x: scroll;
 }
 .sc main::-webkit-scrollbar {
     display: none;
 }
-.sc main img{
-    width: 10%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-    border-radius: 5px;
+
+</style>
+<style is:global>
+.plcl{
+    width: 13%;
+    height: 90%;
     margin-left: 2%;
     margin-right: 2%;
+    border-radius: 5px;
+    overflow: hidden;
     }
+.plcl img{
+    width: 100%;
+    overflow: hidden;
+}   
 </style>

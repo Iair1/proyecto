@@ -1,0 +1,42 @@
+
+<script>
+	document.getElementById("modoOscuro")?.addEventListener("change", mOsc)
+	function mOsc(){
+		alert("modo oscuro")
+	}
+
+    let peliculas = [
+        {
+            nombre: "Super Perro",
+            generos: ["Accion", "Infantil"],
+            portada: "../assets/historico.png",
+            ubicacion: ["ParaTodaLaFamilia"],
+            miLista: false
+        },
+        {
+            nombre: "El fin del verano",
+            generos: ["Romance"],
+            portada: "https://th.bing.com/th/id/OIP.w0yBLo7BW9N_nuRwNY0lGwHaHX?w=188&h=187&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
+            ubicacion: ["MasPopulares"],
+            miLista: false
+        }
+    ]
+
+	for(let i = 0; i < peliculas.length; i++){
+        let p = peliculas[i]
+        for(let j = 0; j < p.ubicacion.length; j++){
+            let ub=document.getElementById(p.ubicacion[j])
+            let img = document.createElement("img")
+            img.src = p.portada
+            img.alt = p.nombre
+
+            let sction = document.createElement("section")
+            sction.classList.add("plcl")
+            sction.appendChild(img)
+            ub?.appendChild(sction)
+        }
+    }
+
+
+
+</script>
