@@ -10,7 +10,7 @@
             nombre: "Super Perro",
             generos: ["Accion", "Infantil"],
             portada: "../assets/historico.png",
-            ubicacion: ["ParaTodaLaFamilia"],
+            ubicacion: ["ParaTodaLaFamilia", "MasPopulares"],
             miLista: false
         },
         {
@@ -22,8 +22,39 @@
         }
     ]
 
-	for(let i = 0; i < peliculas.length; i++){
+let listas=["ParaTodaLaFamilia", "MasPopulares", "Clasicos"]
+let generos: string[] = []
+ponePelis()
+
+
+for(let i = 0; i < 6; i++){
+    document.getElementById("filtro"+i)?.addEventListener("click", function(){filtros(document.getElementById("filtro"+i) as HTMLButtonElement)})
+}
+function filtros(x: HTMLButtonElement){
+    let filtro = x.value
+    if (generos.includes(filtro)){
+        generos.splice(generos.indexOf(filtro), 1)
+    } else {
+        generos.push(filtro)
+    }
+    console.log(generos)
+    ponePelis()
+}
+function ponePelis(){
+    for(let i = 0; i<listas.length; i++){
+        let a = document.getElementById(listas[i]);
+        if (a){ a.innerHTML=""}
+    }
+    for(let i = 0; i < peliculas.length; i++){
+        let papa = false
         let p = peliculas[i]
+        if (generos.length>0){
+            for(let j = 0; j < p.generos.length; j++){
+                if(p.generos.includes(generos[j])){
+                    papa = true
+                }
+            }
+        } else { papa = true}
         for(let j = 0; j < p.ubicacion.length; j++){
             let ub=document.getElementById(p.ubicacion[j])
             let img = document.createElement("img")
@@ -36,7 +67,7 @@
             ub?.appendChild(sction)
         }
     }
-
+}
 
 
 </script>

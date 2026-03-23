@@ -20,30 +20,30 @@ import historico from '../assets/historico.png';
             <p>Filtrar por género</p>
         </header>
         <main class="filtro">
-            <section>
+            <button id="filtro0" value="Accion">
                 <img src={accion.src} alt="Acción" id="f1">
                 <p>Acción</p>
-            </section>
-            <section>
+            </button>
+            <button id="filtro1" value="Comedia">
                 <img src={comedia.src} alt="Comedia" id="f2">
                 <p>Comedia</p>
-            </section>
-            <section>
+            </button>
+            <button id="filtro2" value="Terror">
                 <img src={terror.src} alt="Terror" id="f3">
                 <p>Terror</p>
-            </section>
-            <section>
+            </button>
+            <button id="filtro3" value="Romance">
                 <img src={romance.src} alt="Romance" id="f4">
                 <p>Romance</p>
-            </section>
-            <section>
+            </button>
+            <button id="filtro4" value="Infantil">
                 <img src={infantil.src} alt="Infantil" id="f5">
                 <p>Infantil</p>
-            </section>
-            <section>
+            </button>
+            <button id="filtro5" value="Histórico">
                 <img src={historico.src} alt="Histórico" id="f0">
                 <p>Histórico</p>
-            </section>
+            </button>
         </main>
 
     </article>
@@ -107,17 +107,19 @@ import historico from '../assets/historico.png';
         justify-content: space-between;
         margin-top: 2%;
     }
-    .filtro section{
+    .filtro button{
         width: 45%;
         margin-bottom: 1%;
         display: flex;
         flex-direction: column;
+        background-color: transparent;
+        border-style: none;
     }
-    .filtro section p{
+    .filtro button p{
         margin: 0;
         color: white;
     }
-    .filtro section img{
+    .filtro button img{
         width: 100%;
         aspect-ratio: 3/2;
         object-fit: cover;
