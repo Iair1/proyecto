@@ -9,7 +9,7 @@
         {
             nombre: "Super Perro",
             generos: ["Accion", "Infantil"],
-            portada: "../assets/historico.png",
+            portada: "https://th.bing.com/th/id/OIP.FmGmNyGnKsipCKI71oHk7wHaHa?w=189&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
             ubicacion: ["ParaTodaLaFamilia", "MasPopulares"],
             miLista: false
         },
@@ -34,8 +34,10 @@ function filtros(x: HTMLButtonElement){
     let filtro = x.value
     if (generos.includes(filtro)){
         generos.splice(generos.indexOf(filtro), 1)
+        x.style.borderStyle = "none"
     } else {
         generos.push(filtro)
+        x.style.borderStyle = "solid"
     }
     console.log(generos)
     ponePelis()
@@ -49,22 +51,24 @@ function ponePelis(){
         let papa = false
         let p = peliculas[i]
         if (generos.length>0){
-            for(let j = 0; j < p.generos.length; j++){
+            for(let j = 0; j < generos.length; j++){
                 if(p.generos.includes(generos[j])){
                     papa = true
                 }
             }
         } else { papa = true}
-        for(let j = 0; j < p.ubicacion.length; j++){
-            let ub=document.getElementById(p.ubicacion[j])
-            let img = document.createElement("img")
-            img.src = p.portada
-            img.alt = p.nombre
+        if(papa){
+            for(let j = 0; j < p.ubicacion.length; j++){
+                let ub=document.getElementById(p.ubicacion[j])
+                let img = document.createElement("img")
+                img.src = p.portada
+                img.alt = p.nombre
 
-            let sction = document.createElement("section")
-            sction.classList.add("plcl")
-            sction.appendChild(img)
-            ub?.appendChild(sction)
+                let sction = document.createElement("section")
+                sction.classList.add("plcl")
+                sction.appendChild(img)
+                ub?.appendChild(sction)
+            }
         }
     }
 }
