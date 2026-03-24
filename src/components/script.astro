@@ -75,10 +75,12 @@ function ponePelis(){
                 let img = document.createElement("img")
                 img.src = p.portada
                 img.alt = p.nombre
-
+                let txt = document.createElement("p")
+                txt.innerText = p.nombre
                 let sction = document.createElement("section")
                 sction.classList.add("plcl")
                 sction.appendChild(img)
+                sction.appendChild(txt)
                 ub?.appendChild(sction)
             }
         }
