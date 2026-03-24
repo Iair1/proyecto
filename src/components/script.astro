@@ -14,6 +14,13 @@
             miLista: false
         },
         {
+            nombre: "Super Gato",
+            generos: ["Accion", "Infantil"],
+            portada: "https://th.bing.com/th/id/OIP.FmGmNyGnKsipCKI71oHk7wHaHa?w=189&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
+            ubicacion: ["ParaTodaLaFamilia", "MasPopulares"],
+            miLista: false
+        },
+        {
             nombre: "El fin del verano",
             generos: ["Romance"],
             portada: "https://th.bing.com/th/id/OIP.w0yBLo7BW9N_nuRwNY0lGwHaHX?w=188&h=187&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
@@ -30,6 +37,7 @@ ponePelis()
 for(let i = 0; i < 6; i++){
     document.getElementById("filtro"+i)?.addEventListener("click", function(){filtros(document.getElementById("filtro"+i) as HTMLButtonElement)})
 }
+document.getElementById("buscador")?.addEventListener("change", ponePelis)
 function filtros(x: HTMLButtonElement){
     let filtro = x.value
     if (generos.includes(filtro)){
@@ -42,6 +50,8 @@ function filtros(x: HTMLButtonElement){
     console.log(generos)
     ponePelis()
 }
+
+
 function ponePelis(){
     for(let i = 0; i<listas.length; i++){
         let a = document.getElementById(listas[i]);
@@ -50,13 +60,15 @@ function ponePelis(){
     for(let i = 0; i < peliculas.length; i++){
         let papa = false
         let p = peliculas[i]
-        if (generos.length>0){
-            for(let j = 0; j < generos.length; j++){
-                if(p.generos.includes(generos[j])){
-                    papa = true
+        if(p.nombre.toLowerCase().includes((document.getElementById("buscador") as HTMLInputElement).value.toLowerCase())){
+            if (generos.length>0){
+                for(let j = 0; j < generos.length; j++){
+                    if(p.generos.includes(generos[j])){
+                        papa = true
+                    }
                 }
-            }
-        } else { papa = true}
+            } else { papa = true}
+        }
         if(papa){
             for(let j = 0; j < p.ubicacion.length; j++){
                 let ub=document.getElementById(p.ubicacion[j])
