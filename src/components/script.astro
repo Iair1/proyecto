@@ -11,24 +11,28 @@
             generos: ["Accion", "Infantil"],
             portada: "https://th.bing.com/th/id/OIP.FmGmNyGnKsipCKI71oHk7wHaHa?w=189&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
             ubicacion: ["ParaTodaLaFamilia", "MasPopulares"],
-            miLista: false
+            miLista: false,
+            pml: 0
         },
         {
             nombre: "Super Gato",
             generos: ["Accion", "Infantil"],
             portada: "https://th.bing.com/th/id/OIP.FmGmNyGnKsipCKI71oHk7wHaHa?w=189&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
             ubicacion: ["ParaTodaLaFamilia", "MasPopulares"],
-            miLista: false
+            miLista: false,
+            pml: 0
         },
         {
             nombre: "El fin del verano",
             generos: ["Romance"],
             portada: "https://th.bing.com/th/id/OIP.w0yBLo7BW9N_nuRwNY0lGwHaHX?w=188&h=187&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
             ubicacion: ["MasPopulares"],
-            miLista: false
+            miLista: false,
+            pml: 0
         }
     ]
 
+let separadorGeneral = 0
 let listas=["ParaTodaLaFamilia", "MasPopulares", "Clasicos"]
 let generos: string[] = []
 ponePelis()
@@ -50,7 +54,6 @@ function filtros(x: HTMLButtonElement){
     console.log(generos)
     ponePelis()
 }
-
 
 function ponePelis(){
     for(let i = 0; i<listas.length; i++){
@@ -79,11 +82,86 @@ function ponePelis(){
                 txt.innerText = p.nombre
                 let sction = document.createElement("section")
                 sction.classList.add("plcl")
+                sction.id = p.nombre.replaceAll(" ", "")+separadorGeneral
+                separadorGeneral++
                 sction.appendChild(img)
                 sction.appendChild(txt)
+                sction.addEventListener("click", popup)
                 ub?.appendChild(sction)
             }
         }
+    }
+}
+let popupNumero = 0;
+function popup(e: MouseEvent){
+    let ml = document.createElement("div")
+    ml.classList.add("ml")
+    ml.id = "ml"+popupNumero
+    let btn1 = document.createElement("button")
+    let btn2 = document.createElement("button")
+    btn1.innerText = "La quiero en mi lista"
+    btn2.innerText = "No quiero en mi lista"
+
+    btn1.addEventListener("click", function(){
+        let peli = peliculas[0]
+        let cosoimp = (e.target as HTMLElement).parentElement?.id
+        cosoimp = cosoimp?.substring(0, cosoimp.length-1)
+        for(let i = 0; i < peliculas.length; i++){
+            if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
+                peli = peliculas[i]
+            }
+        }
+        if(peli?.miLista == false){
+            peli.miLista = true
+            let img = document.createElement("img")
+            img.src = peli.portada
+            img.alt = peli.nombre
+            let txt = document.createElement("p")
+            txt.innerText = peli.nombre
+            let sction = document.createElement("section")
+            sction.classList.add("plcl")
+            sction.id = peli.nombre.replaceAll(" ", "")+separadorGeneral
+            peli.pml = separadorGeneral
+            separadorGeneral++
+            sction.appendChild(img)
+            sction.appendChild(txt)
+            sction.addEventListener("click", popup)
+            document.getElementById("MiLista")?.appendChild(sction)
+        }
+    
+    })
+    btn2.addEventListener("click", function(){
+        let peli = peliculas[0]
+        let cosoimp = (e.target as HTMLElement).parentElement?.id
+        cosoimp = cosoimp?.substring(0, cosoimp.length-1)
+        for(let i = 0; i < peliculas.length; i++){
+            if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
+                peli = peliculas[i]
+            }
+        }
+        if(peli?.miLista == true){
+            peli.miLista = false
+            console.log(cosoimp+String(peli.pml))
+            document.getElementById(cosoimp+String(peli.pml))?.remove()
+        }
+    
+    })
+    
+
+    ml.style.position = "absolute"
+    ml.style.left = (e.clientX - 50) + 'px';
+    ml.style.top = (e.clientY - 25) + 'px'
+
+    ml.appendChild(btn1)
+    ml.appendChild(btn2)
+    document.body.appendChild(ml)
+}
+document.addEventListener("click", borrarcoso)
+function borrarcoso(){
+    let ml = document.getElementsByClassName("ml")
+    popupNumero++
+    if(ml[0] && ml[0].id != "ml"+(popupNumero-1)){
+        ml[0].remove()
     }
 }
 
