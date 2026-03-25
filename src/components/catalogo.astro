@@ -27,10 +27,16 @@
     </section>
 </main>
 <style>
-
+p{
+    color: var(--txt-color);
+    font-family: var(--fuente);
+}
+*{
+    border-color: var(--borde);
+}
 .ctlg{
     flex: 1;
-    background-color: rgb(54, 54, 54);
+    background-color: var(--catalogo);
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -41,7 +47,6 @@
     height: 23%;
     border-style: solid;
     border-width: 2px;
-    border-color: #909090;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -54,7 +59,6 @@
     margin-bottom: 2%;
 }
 .sc header p{
-    color: white;
     font-size: 15px;
     margin: 0;
     margin-left: 1%;
@@ -89,9 +93,9 @@
     overflow: hidden;
 }
 .plcl p{
-    color: white;
     font-size: 10px;
     margin: 0;
+    color: var(--txt-color);
 }
 .ml{
     width: 90px;
@@ -102,5 +106,6 @@
 .ml button{
     height: 50%;
     width: 100%;
+    color: black;
 }
 </style>

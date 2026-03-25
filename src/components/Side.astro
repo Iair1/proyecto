@@ -12,7 +12,7 @@ import historico from '../assets/historico.png';
         <p>Indica tus preferencias</p>
     </header>
     <div class="soloparaqueencaje">
-    <input type="text" placeholder="Buscar" id="buscador", class = "buscador">
+    <input type="text" placeholder="Buscar" id="buscador" class="buscador">
     <img src={lupa.src} class="lupa">
     </div>
     <article class="generos">
@@ -50,6 +50,13 @@ import historico from '../assets/historico.png';
 </aside>
 
 <style>
+    p{
+        color: var(--txt-color);
+        font-family: var(--fuente);
+    }
+    *{
+        border-color: var(--borde);
+    }
 	.preferencias{
 		height: 100vh;
 		background-color: #282828;
@@ -63,7 +70,6 @@ import historico from '../assets/historico.png';
 	.preferencias header{
 		width: 100%;
 		height: 10%;
-		border-bottom-color: #808080;
 		border-bottom-width: 1px;
         border-bottom-style: solid;
         display: flex;
@@ -71,8 +77,6 @@ import historico from '../assets/historico.png';
         align-items: center;
 	}
     .preferencias header p{
-        color: white;  
-        font-family: 'Roboto', sans-serif;
         font-size: 30px;
     }
     .buscador{
@@ -84,7 +88,6 @@ import historico from '../assets/historico.png';
         border-radius: 9999999px;
         padding-left: 12%;
         border-style: solid;
-        border-color: #808080;
     }
     .lupa{
         position: absolute;
@@ -119,7 +122,6 @@ import historico from '../assets/historico.png';
     }
     .filtro button p{
         margin: 0;
-        color: white;
     }
     .filtro button img{
         width: 100%;

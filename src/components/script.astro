@@ -1,8 +1,14 @@
 
 <script>
 	document.getElementById("modoOscuro")?.addEventListener("change", mOsc)
-	function mOsc(){
-		alert("modo oscuro")
+	function mOsc(e: Event){
+        if((e.target as HTMLInputElement).checked){
+            document.documentElement.style.setProperty('--side', '#282828');
+            console.log(document.documentElement.style.getPropertyValue('--side')) 
+        } else {
+            document.documentElement.style.setProperty('--side', '#f0f0f0');
+            console.log(document.documentElement.style.getPropertyValue('--side'))
+        }
 	}
 
     let peliculas = [
@@ -165,5 +171,6 @@ function borrarcoso(){
     }
 }
 
+ 
 
 </script>
