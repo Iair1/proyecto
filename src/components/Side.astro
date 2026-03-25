@@ -7,14 +7,14 @@ import romance from '../assets/romance.png';
 import infantil from '../assets/infantil.png';
 import historico from '../assets/historico.png';
 ---
-<aside class="preferencias">
+<aside class="preferencias" id="preferencias">
 	<header>
         <p>Indica tus preferencias</p>
     </header>
-    <div class="soloparaqueencaje">
+    <section class="soloparaqueencaje">
     <input type="text" placeholder="Buscar" id="buscador" class="buscador">
     <img src={lupa.src} class="lupa">
-    </div>
+    </section>
     <article class="generos">
         <header>
             <p>Filtrar por género</p>
@@ -50,22 +50,17 @@ import historico from '../assets/historico.png';
 </aside>
 
 <style>
-    p{
-        color: var(--txt-color);
-        font-family: var(--fuente);
-    }
-    *{
-        border-color: var(--borde);
-    }
+
+
 	.preferencias{
 		height: 100vh;
-		background-color: #282828;
 		width: 32%;
         padding-left: 4%;
         padding-right: 4%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        display: none;
 	}
 	.preferencias header{
 		width: 100%;
@@ -83,7 +78,7 @@ import historico from '../assets/historico.png';
         margin-top: 10px;
         margin-bottom: 10px;
         width: 50%;
-        aspect-ratio: 6/1;
+        aspect-ratio: 5/1;
         font-size: 20px;
         border-radius: 9999999px;
         padding-left: 12%;
@@ -117,7 +112,6 @@ import historico from '../assets/historico.png';
         flex-direction: column;
         background-color: transparent;
         border-style: none;
-        border-color: white;
         border-width: 2px;
     }
     .filtro button p{
@@ -128,4 +122,10 @@ import historico from '../assets/historico.png';
         aspect-ratio: 3/2;
         object-fit: cover;
     }
+</style>
+<style is:global>
+    .preferencias, .sacaraside{
+        background-color: var(--side);
+    }
+
 </style>

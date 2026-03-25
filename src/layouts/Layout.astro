@@ -20,13 +20,13 @@
 	</body>
 </html>
 
-<style>
+<style is:global>
 	:root {
-		--side: #282828;
-		--txt-color: white;
-		--catalogo: rgb(54, 54, 54);
+		--side: #e0e0e0;
+		--txt-color: black;
+		--catalogo: rgb(200, 200, 200);
 		--fuente: 'Roboto', sans-serif;
-		--borde : #909090;
+		--borde : #ccccccc;
 	}
 	html,
 	body {
@@ -40,5 +40,30 @@
 		margin: 0;
 		padding: 0;
 		box-sizing: border-box;
-	}
+        border-color: var(--borde);
+	}    p{
+        color: var(--txt-color);
+        font-family: var(--fuente);
+    }
+	    .sacaraside{
+        position: absolute;
+        width: 4%;
+        aspect-ratio: 7/9;
+        top: 6px;
+        left: 0%;
+        border-top-right-radius: 9999px;
+        border-bottom-right-radius: 9999px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-style: solid;
+        border-left-style: none;
+    }
+    .sacaraside p{
+        font-size: 30px;
+        color: var(--txt-color);
+        font-family: var(--fuente);
+        font-style: bold;
+        margin: 0;
+    }
 </style>

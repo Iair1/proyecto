@@ -4,10 +4,14 @@
 	function mOsc(e: Event){
         if((e.target as HTMLInputElement).checked){
             document.documentElement.style.setProperty('--side', '#282828');
-            console.log(document.documentElement.style.getPropertyValue('--side')) 
+            document.documentElement.style.setProperty('--txt-color', 'white');
+            document.documentElement.style.setProperty('--catalogo', 'rgb(54, 54, 54)');
+            document.documentElement.style.setProperty('--borde', '#cccccc');
         } else {
-            document.documentElement.style.setProperty('--side', '#f0f0f0');
-            console.log(document.documentElement.style.getPropertyValue('--side'))
+            document.documentElement.style.setProperty('--side', '#e0e0e0');
+            document.documentElement.style.setProperty('--txt-color', 'black');
+            document.documentElement.style.setProperty('--catalogo', 'rgb(200, 200, 200)');
+            document.documentElement.style.setProperty('--borde', '#606060');
         }
 	}
 
@@ -171,6 +175,19 @@ function borrarcoso(){
     }
 }
 
- 
-
+let aside = false
+document.getElementById("sacaraside")?.addEventListener("click", filtro)
+function filtro(){
+    let a = document.getElementById("preferencias")
+    let b = document.getElementById("sacaraside")
+    if(a && b){if(aside){
+        a.style.display = "none"
+        aside = false
+        b.style.left = "0%"
+    } else {
+        a.style.display = "flex"
+        aside = true
+        b.style.left = "32%"
+    }}
+}
 </script>

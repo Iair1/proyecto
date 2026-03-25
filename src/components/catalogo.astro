@@ -27,13 +27,6 @@
     </section>
 </main>
 <style>
-p{
-    color: var(--txt-color);
-    font-family: var(--fuente);
-}
-*{
-    border-color: var(--borde);
-}
 .ctlg{
     flex: 1;
     background-color: var(--catalogo);
@@ -66,7 +59,6 @@ p{
 .sc main{
     width: 99%;
     height: 85%;
-    margin-bottom: 1%;
     display: flex;
     align-items: center;
     overflow-x: scroll;
@@ -78,8 +70,8 @@ p{
 </style>
 <style is:global>
 .plcl{
-    width: 13%;
     height: 100%;
+    aspect-ratio: 3/2;
     margin-left: 2%;
     margin-right: 2%;
     border-top-left-radius: 5px;
@@ -88,14 +80,13 @@ p{
     flex-shrink: 0;
     }
 .plcl img{
-    width: 100%;
-    height: 80%;
+    height: 70%;
+    aspect-ratio: 6/4;
     overflow: hidden;
 }
 .plcl p{
     font-size: 10px;
     margin: 0;
-    color: var(--txt-color);
 }
 .ml{
     width: 90px;
