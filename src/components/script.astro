@@ -1,5 +1,13 @@
 
 <script>
+	import ElFinDelVerano from "../assets/portadas/ElFinDelVerano.webp"
+    import LosImpresionantes from "../assets/portadas/LosImpresionantes.webp"
+    import Ti from "../assets/portadas/Ti.png"
+    import Uanderuoman from "../assets/portadas/uanderuoman.jpg"
+    import TerrifyingMovie from "../assets/portadas/TerrifyingMovie.jpg"
+    import JuegoDeSillas from "../assets/portadas/JuegoDeSillas.png"
+    import VelocesYEnojados from "../assets/portadas/VelocesYEnojados.jpg"
+
 	document.getElementById("modoOscuro")?.addEventListener("change", mOsc)
 	function mOsc(e: Event){
         if((e.target as HTMLInputElement).checked){
@@ -17,33 +25,81 @@
 
     let peliculas = [
         {
-            nombre: "Super Perro",
-            generos: ["Accion", "Infantil"],
-            portada: "https://th.bing.com/th/id/OIP.FmGmNyGnKsipCKI71oHk7wHaHa?w=189&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
-            ubicacion: ["ParaTodaLaFamilia", "MasPopulares"],
-            miLista: false,
-            pml: 0
-        },
-        {
-            nombre: "Super Gato",
-            generos: ["Accion", "Infantil"],
-            portada: "https://th.bing.com/th/id/OIP.FmGmNyGnKsipCKI71oHk7wHaHa?w=189&h=189&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
-            ubicacion: ["ParaTodaLaFamilia", "MasPopulares"],
-            miLista: false,
-            pml: 0
-        },
-        {
             nombre: "El fin del verano",
             generos: ["Romance"],
-            portada: "https://th.bing.com/th/id/OIP.w0yBLo7BW9N_nuRwNY0lGwHaHX?w=188&h=187&c=7&r=0&o=7&dpr=1.5&pid=1.7&rm=3",
+            portada: ElFinDelVerano.src,
+            ubicacion: ["MasPopulares", "LoMasNuevo"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Los impresionantes",
+            generos: ["Accion", "Aventura", "Infantil"],
+            portada: LosImpresionantes.src,
+            ubicacion: ["PodriaGustarte", "Clasicos"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Ti",
+            generos: ["Terror"],
+            portada: Ti.src,
+            ubicacion: ["PodriaGustarte", "MasPopulares", "LoMasNuevo"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Uanderuoman",
+            generos: ["Accion", "Historico"],
+            portada: Uanderuoman.src,
+            ubicacion: ["PodriaGustarte", "LoMasNuevo"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Terrifying Movie",
+            generos: ["Terror", "Comedia"],
+            portada: TerrifyingMovie.src,
             ubicacion: ["MasPopulares"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Juego de sillas",
+            generos: ["Historico"],
+            portada: JuegoDeSillas.src,
+            ubicacion: ["Clasicos", "PodriaGustarte"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Veloces y enojados",
+            generos: ["Accion", "Aventura"],
+            portada: VelocesYEnojados.src,
+            ubicacion: ["PodriaGustarte", "Clasicos"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Veloces y enojados 2",
+            generos: ["Accion", "Aventura"],
+            portada: VelocesYEnojados.src,
+            ubicacion: ["PodriaGustarte"],
+            miLista: false,
+            pml: 0
+        },
+        {
+            nombre: "Veloces y enojados 3",
+            generos: ["Accion", "Aventura"],
+            portada: VelocesYEnojados.src,
+            ubicacion: ["PodriaGustarte", "LoMasNuevo"],
             miLista: false,
             pml: 0
         }
     ]
 
-let separadorGeneral = 0
-let listas=["ParaTodaLaFamilia", "MasPopulares", "Clasicos"]
+let separadorGeneral = 1000000
+let listas=["PodriaGustarte", "MasPopulares", "Clasicos", "LoMasNuevo"]
 let generos: string[] = []
 ponePelis()
 
@@ -113,15 +169,17 @@ function popup(e: MouseEvent){
     btn2.innerText = "No quiero en mi lista"
 
     btn1.addEventListener("click", function(){
-        let peli = peliculas[0]
+        let peli = null
         let cosoimp = (e.target as HTMLElement).parentElement?.id
-        cosoimp = cosoimp?.substring(0, cosoimp.length-1)
+        console.log(cosoimp)
+        cosoimp = cosoimp?.substring(0, cosoimp.length-7)
         for(let i = 0; i < peliculas.length; i++){
+            console.log(peliculas[i].nombre.replaceAll(" ", ""))
             if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
                 peli = peliculas[i]
             }
         }
-        if(peli?.miLista == false){
+        if(peli?.miLista == false && peli){
             peli.miLista = true
             let img = document.createElement("img")
             img.src = peli.portada
@@ -141,9 +199,9 @@ function popup(e: MouseEvent){
     
     })
     btn2.addEventListener("click", function(){
-        let peli = peliculas[0]
+        let peli =  null
         let cosoimp = (e.target as HTMLElement).parentElement?.id
-        cosoimp = cosoimp?.substring(0, cosoimp.length-1)
+        cosoimp = cosoimp?.substring(0, cosoimp.length-7)
         for(let i = 0; i < peliculas.length; i++){
             if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
                 peli = peliculas[i]

@@ -1,43 +1,48 @@
 ---
 ---
 <main class="ctlg">
-    <section class="sc" id="sc">
+    <section class="sc">
         <header>
             <p>Mi lista</p>
         </header>
         <main id="MiLista"> </main>
     </section>
-    <section class="sc" id="sc">
+    <section class="sc">
         <header>
-            <p>Para toda la familia</p>
+            <p>Podria gustarte</p>
         </header>
-        <main id="ParaTodaLaFamilia"> </main>
+        <main id="PodriaGustarte"> </main>
     </section>
-    <section class="sc" id="sc">
+    <section class="sc">
         <header>
             <p>Mas populares</p>
         </header>
         <main id="MasPopulares"></main>
     </section>
-    <section class="sc" id="sc">
+    <section class="sc">
         <header>
             <p>Clasicos</p>
         </header>
         <main id="Clasicos"></main>
     </section>
+    <section class="sc">
+        <header>
+            <p>Lo mas nuevo</p>
+        </header>
+        <main id="LoMasNuevo"></main>
+    </section>
 </main>
 <style>
 .ctlg{
-    flex: 1;
     background-color: var(--catalogo);
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
 }
 .sc{
+    flex-shrink: 0;
     width: 90%;
-    height: 23%;
+    height: 23vh;
     border-style: solid;
     border-width: 2px;
     border-radius: 10px;
@@ -45,6 +50,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 .sc header{
     width: 100%;
@@ -58,12 +65,12 @@
 }
 .sc main{
     width: 99%;
-    height: 85%;
+    flex: 1;
     display: flex;
     align-items: center;
     overflow-x: scroll;
 }
-.sc main::-webkit-scrollbar {
+.sc main::-webkit-scrollbar, .ctlg main::-webkit-scrollbar {
     display: none;
 }
 
@@ -78,6 +85,9 @@
     border-top-right-radius: 5px;
     overflow: hidden;
     flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     }
 .plcl img{
     height: 70%;
@@ -85,7 +95,7 @@
     overflow: hidden;
 }
 .plcl p{
-    font-size: 10px;
+    font-size: 15px;
     margin: 0;
 }
 .ml{
