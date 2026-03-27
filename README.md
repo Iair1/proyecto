@@ -1,46 +1,12 @@
-# Astro Starter Kit: Basics
+Catalogo de peliculas
 
-```sh
-npm create astro@latest -- --template basics
-```
+Aquí se vera un catálogo de películas similar el de un sevicio de streaming, puedes filtrar el contenido o agregar peliculas a tu lista
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Para filtrar, solo hace falta hacer click en la flecha de arriba a la derecha, donde se abrira un menú donde puedes seleccionar los géneros que quieres ver o buscar una película por su nombre
 
-## 🚀 Project Structure
+Para agregar una película a tu lista, haz click en cualquier instancia en la que se te muestra adentro del catálogo, aparecerá un pop up que te preguntará si quieres tenerla en tu lista o no.
 
-Inside of your Astro project, you'll see the following folders and files:
+Tambien puedes activar el modo oscuro, tocando el input de arriba a la derecha.
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Este proyecto usa astro para separar cada isla. Css con variables para poder cambiar rápidamente del modo claro al oscuro sin necesidad de demasiado código. En javascript se guardan las películas ya existentes en objetos que indican el nombre de la película, la portada, sus géneros, en que parte del catalogo aparece y si es parte de "Mi Lista". Al empezar, se agregan todas las películas en sus correspondiendes lugares, y al filtrarlas, se eliminan todas y se muestran solo aquellas que coindiden con el filtro.
