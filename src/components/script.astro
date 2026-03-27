@@ -122,6 +122,8 @@ function filtros(x: HTMLButtonElement){
 }
 
 function ponePelis(){
+    let nmi = document.getElementById("MiLista")
+    if(nmi){ nmi.innerHTML="" }
     for(let i = 0; i<listas.length; i++){
         let a = document.getElementById(listas[i]);
         if (a){ a.innerHTML=""}
@@ -141,6 +143,22 @@ function ponePelis(){
         if(papa){
             for(let j = 0; j < p.ubicacion.length; j++){
                 let ub=document.getElementById(p.ubicacion[j])
+                let img = document.createElement("img")
+                img.src = p.portada
+                img.alt = p.nombre
+                let txt = document.createElement("p")
+                txt.innerText = p.nombre
+                let sction = document.createElement("section")
+                sction.classList.add("plcl")
+                sction.id = p.nombre.replaceAll(" ", "")+separadorGeneral
+                separadorGeneral++
+                sction.appendChild(img)
+                sction.appendChild(txt)
+                sction.addEventListener("click", popup)
+                ub?.appendChild(sction)
+            }
+            if(p.miLista){
+                let ub=document.getElementById("MiLista")
                 let img = document.createElement("img")
                 img.src = p.portada
                 img.alt = p.nombre
