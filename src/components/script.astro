@@ -98,7 +98,7 @@
         }
     ]
 
-let separadorGeneral = 1000000
+let separadorGeneral = 1000000000
 let listas=["PodriaGustarte", "MasPopulares", "Clasicos", "LoMasNuevo"]
 let generos: string[] = []
 ponePelis()
@@ -166,8 +166,7 @@ function ponePelis(){
                 txt.innerText = p.nombre
                 let sction = document.createElement("section")
                 sction.classList.add("plcl")
-                sction.id = p.nombre.replaceAll(" ", "")+separadorGeneral
-                separadorGeneral++
+                sction.id = p.nombre.replaceAll(" ", "")+p.pml
                 sction.appendChild(img)
                 sction.appendChild(txt)
                 sction.addEventListener("click", popup)
@@ -190,7 +189,7 @@ function popup(e: MouseEvent){
         let peli = null
         let cosoimp = (e.target as HTMLElement).parentElement?.id
         console.log(cosoimp)
-        cosoimp = cosoimp?.substring(0, cosoimp.length-7)
+        cosoimp = cosoimp?.substring(0, cosoimp.length-10)
         for(let i = 0; i < peliculas.length; i++){
             console.log(peliculas[i].nombre.replaceAll(" ", ""))
             if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
@@ -219,7 +218,7 @@ function popup(e: MouseEvent){
     btn2.addEventListener("click", function(){
         let peli =  null
         let cosoimp = (e.target as HTMLElement).parentElement?.id
-        cosoimp = cosoimp?.substring(0, cosoimp.length-7)
+        cosoimp = cosoimp?.substring(0, cosoimp.length-10)
         for(let i = 0; i < peliculas.length; i++){
             if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
                 peli = peliculas[i]
