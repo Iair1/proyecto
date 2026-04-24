@@ -1,4 +1,4 @@
-Vercel: https://vercel.com/iairs-projects/proyecto-unkn
+Vercel: https://proyecto-unkn.vercel.app/
 
 Catalogo de peliculas
 
