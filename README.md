@@ -12,3 +12,5 @@ Tambien puedes activar el modo oscuro, tocando el input de arriba a la derecha.
 
 
 Este proyecto usa astro para separar cada isla. Css con variables para poder cambiar rápidamente del modo claro al oscuro sin necesidad de demasiado código. En javascript se guardan las películas ya existentes en objetos que indican el nombre de la película, la portada, sus géneros, en que parte del catalogo aparece y si es parte de "Mi Lista". Al empezar, se agregan todas las películas en sus correspondiendes lugares, y al filtrarlas, se eliminan todas y se muestran solo aquellas que coindiden con el filtro.
+
+Iair-branch creada
