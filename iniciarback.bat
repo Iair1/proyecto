@@ -1,0 +1,3 @@
+cd "./"
+echo Iniciando back... 
+start cmd /k "npm start"

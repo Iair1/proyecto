@@ -2,11 +2,11 @@ import UsuariosService from "../services/usuarios.service.js";
 
 const crearCuenta = async (req, res) => {
     try{
-        const { userid, password } = req.body;
-        if (!userid || !password) {
+        const { nombre, contrasena } = req.body;
+        if (!nombre || !contrasena) {
             return res.status(400).json({ message: "Debe completar todos los campos" });
         }
-        const usuario = await UsuariosService.crearCuenta(userid, password);
+        const usuario = await UsuariosService.crearCuenta(nombre, contrasena);
         res.status(201).json({ message: "Cuenta creada exitosamente", usuario });
     }
     catch(error){
@@ -16,12 +16,12 @@ const crearCuenta = async (req, res) => {
 
 const iniciarSesion = async (req, res) => {
     try{
-        const { userid, password } = req.body;
-        if (!userid || !password) {
+        const { nombre, contrasena } = req.body;
+        if (!nombre || !contrasena) {
             return res.status(400).json({ message: "Debe completar todos los campos" });
         }
-        const usuario = await UsuariosService.iniciarSesion(userid, password);
-        res.status(200).json({ message: "Sesión iniciada exitosamente", usuario });
+        const token = await UsuariosService.iniciarSesion(nombre, contrasena);
+        res.status(200).json({ token: token });
     }
     catch(error){
         res.status(500).json({ message: error.message });
