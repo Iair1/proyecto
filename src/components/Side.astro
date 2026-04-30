@@ -7,125 +7,230 @@ import romance from '../assets/romance.png';
 import infantil from '../assets/infantil.png';
 import historico from '../assets/historico.png';
 ---
-<aside class="preferencias" id="preferencias">
-	<header>
-        <p>Indica tus preferencias</p>
-    </header>
-    <section class="soloparaqueencaje">
-    <input type="text" placeholder="Buscar" id="buscador" class="buscador">
-    <img src={lupa.src} class="lupa">
-    </section>
-    <article class="generos">
-        <header>
-            <p>Filtrar por género</p>
-        </header>
-        <main class="filtro">
-            <button id="filtro0" value="Accion">
-                <img src={accion.src} alt="Acción" id="f1">
-                <p>Acción</p>
-            </button>
-            <button id="filtro1" value="Comedia">
-                <img src={comedia.src} alt="Comedia" id="f2">
-                <p>Comedia</p>
-            </button>
-            <button id="filtro2" value="Terror">
-                <img src={terror.src} alt="Terror" id="f3">
-                <p>Terror</p>
-            </button>
-            <button id="filtro3" value="Romance">
-                <img src={romance.src} alt="Romance" id="f4">
-                <p>Romance</p>
-            </button>
-            <button id="filtro4" value="Infantil">
-                <img src={infantil.src} alt="Infantil" id="f5">
-                <p>Infantil</p>
-            </button>
-            <button id="filtro5" value="Historico">
-                <img src={historico.src} alt="Histórico" id="f0">
-                <p>Histórico</p>
-            </button>
-        </main>
 
-    </article>
+<aside class="preferencias" id="preferencias">
+    <div class="side-inner">
+        <header class="side-header">
+            <span class="side-title">Preferencias</span>
+            <div class="divider"></div>
+        </header>
+
+        <section class="search-section">
+            <label class="search-label">Buscar película</label>
+            <div class="search-wrap">
+                <img src={lupa.src} class="lupa" alt="buscar" />
+                <input type="text" placeholder="Buscar..." id="buscador" class="buscador" />
+            </div>
+        </section>
+
+        <article class="generos">
+            <header class="genre-header">
+                <span class="genre-title">Filtrar por género</span>
+            </header>
+            <main class="filtro">
+                <button id="filtro0" value="Accion" class="genre-btn">
+                    <div class="genre-img-wrap">
+                        <img src={accion.src} alt="Acción" />
+                        <div class="genre-overlay"></div>
+                    </div>
+                    <p>Acción</p>
+                </button>
+                <button id="filtro1" value="Comedia" class="genre-btn">
+                    <div class="genre-img-wrap">
+                        <img src={comedia.src} alt="Comedia" />
+                        <div class="genre-overlay"></div>
+                    </div>
+                    <p>Comedia</p>
+                </button>
+                <button id="filtro2" value="Terror" class="genre-btn">
+                    <div class="genre-img-wrap">
+                        <img src={terror.src} alt="Terror" />
+                        <div class="genre-overlay"></div>
+                    </div>
+                    <p>Terror</p>
+                </button>
+                <button id="filtro3" value="Romance" class="genre-btn">
+                    <div class="genre-img-wrap">
+                        <img src={romance.src} alt="Romance" />
+                        <div class="genre-overlay"></div>
+                    </div>
+                    <p>Romance</p>
+                </button>
+                <button id="filtro4" value="Infantil" class="genre-btn">
+                    <div class="genre-img-wrap">
+                        <img src={infantil.src} alt="Infantil" />
+                        <div class="genre-overlay"></div>
+                    </div>
+                    <p>Infantil</p>
+                </button>
+                <button id="filtro5" value="Historico" class="genre-btn">
+                    <div class="genre-img-wrap">
+                        <img src={historico.src} alt="Histórico" />
+                        <div class="genre-overlay"></div>
+                    </div>
+                    <p>Histórico</p>
+                </button>
+            </main>
+        </article>
+    </div>
 </aside>
 
 <style>
-
-
-	.preferencias{
-		height: 100vh;
-		width: 32%;
-        padding-left: 4%;
-        padding-right: 4%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .preferencias {
+        height: 100vh;
+        width: 300px;
         display: none;
-	}
-	.preferencias header{
-		width: 100%;
-		height: 10%;
-		border-bottom-width: 1px;
-        border-bottom-style: solid;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-	}
-    .preferencias header p{
-        font-size: 30px;
+        flex-direction: column;
+        flex-shrink: 0;
+        overflow-y: auto;
+        overflow-x: hidden;
+        scrollbar-width: none;
+        border-right: 1px solid rgba(255,255,255,0.07);
+        padding-top: 80px;
     }
-    .buscador{
-        margin-top: 10px;
-        margin-bottom: 10px;
-        width: 50%;
-        aspect-ratio: 5/1;
-        font-size: 20px;
-        border-radius: 9999999px;
-        padding-left: 12%;
-        border-style: solid;
-    }
-    .lupa{
-        position: absolute;
-        width: 2%;
-        margin-left: 0.7%;
-        filter: invert(0.7);
-        transform: scaleX(-1);
-    }
-    .soloparaqueencaje{
-        width: 100%;
-        display: flex;
-        align-items: center;
-    }
-    .filtro{
-        width: 100%;
-        height: flex;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        margin-top: 2%;
-    }
-    .filtro button{
-        width: 45%;
-        margin-bottom: 1%;
+    .preferencias::-webkit-scrollbar { display: none; }
+
+    .side-inner {
+        padding: 24px 20px 40px;
         display: flex;
         flex-direction: column;
-        background-color: transparent;
-        border-style: none;
-        border-width: 2px;
+        gap: 28px;
     }
-    .filtro button p{
+
+    .side-header {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .side-title {
+        font-family: 'Bebas Neue', 'Impact', sans-serif;
+        font-size: 22px;
+        letter-spacing: 3px;
+        color: #fff;
+        text-transform: uppercase;
+    }
+
+    .divider {
+        height: 2px;
+        background: linear-gradient(to right, #e50914, transparent);
+        border-radius: 2px;
+    }
+
+    /* ── Search ── */
+    .search-section {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .search-label {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #888;
+    }
+
+    .search-wrap {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .lupa {
+        position: absolute;
+        left: 12px;
+        width: 16px;
+        filter: invert(0.5);
+        transform: scaleX(-1);
+        pointer-events: none;
+    }
+
+    .buscador {
+        width: 100%;
+        padding: 10px 14px 10px 38px;
+        background: rgba(255,255,255,0.07);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 8px;
+        color: #fff;
+        font-size: 14px;
+        outline: none;
+        transition: border-color 0.2s, background 0.2s;
+    }
+    .buscador::placeholder { color: #555; }
+    .buscador:focus {
+        border-color: #e50914;
+        background: rgba(255,255,255,0.1);
+    }
+
+    /* ── Genre filters ── */
+    .genre-header { margin-bottom: 4px; }
+    .genre-title {
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #888;
+    }
+
+    .filtro {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .genre-btn {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 8px;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        transition: border-color 0.2s, transform 0.15s;
+        position: relative;
+    }
+    .genre-btn:hover {
+        border-color: rgba(229,9,20,0.5);
+        transform: scale(1.03);
+    }
+    .genre-btn.active {
+        border-color: #e50914;
+        box-shadow: 0 0 12px rgba(229,9,20,0.35);
+    }
+
+    .genre-img-wrap {
+        width: 100%;
+        position: relative;
+        aspect-ratio: 3/2;
+        overflow: hidden;
+    }
+    .genre-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .genre-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 60%);
+    }
+
+    .genre-btn p {
+        font-size: 11px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #ccc;
+        padding: 6px 4px;
         margin: 0;
     }
-    .filtro button img{
-        width: 100%;
-        aspect-ratio: 3/2;
-        object-fit: cover;
-    }
+    .genre-btn.active p { color: #fff; }
 </style>
+
 <style is:global>
-    .preferencias, .sacaraside{
+    .preferencias {
         background-color: var(--side);
     }
-
 </style>

@@ -1,112 +1,217 @@
 ---
 ---
 <main class="ctlg">
-    <section class="sc">
-        <header>
+    <section class="sc" id="sc-milista">
+        <header class="row-header">
+            <span class="row-badge">★</span>
             <p>Mi lista</p>
         </header>
-        <main id="MiLista"> </main>
+        <div class="row-wrap">
+            <main id="MiLista"></main>
+        </div>
     </section>
     <section class="sc">
-        <header>
-            <p>Podria gustarte </p>
+        <header class="row-header">
+            <span class="row-badge">✦</span>
+            <p>Podría gustarte</p>
         </header>
-        <main id="PodriaGustarte"> </main>
+        <div class="row-wrap">
+            <main id="PodriaGustarte"></main>
+        </div>
     </section>
     <section class="sc">
-        <header>
-            <p>Mas populares</p>
+        <header class="row-header">
+            <span class="row-badge">🔥</span>
+            <p>Más populares</p>
         </header>
-        <main id="MasPopulares"></main>
+        <div class="row-wrap">
+            <main id="MasPopulares"></main>
+        </div>
     </section>
     <section class="sc">
-        <header>
-            <p>Clasicos</p>
+        <header class="row-header">
+            <span class="row-badge">🎞</span>
+            <p>Clásicos</p>
         </header>
-        <main id="Clasicos"></main>
+        <div class="row-wrap">
+            <main id="Clasicos"></main>
+        </div>
     </section>
     <section class="sc">
-        <header>
-            <p>Lo mas nuevo</p>
+        <header class="row-header">
+            <span class="row-badge">🆕</span>
+            <p>Lo más nuevo</p>
         </header>
-        <main id="LoMasNuevo"></main>
+        <div class="row-wrap">
+            <main id="LoMasNuevo"></main>
+        </div>
     </section>
 </main>
+
 <style>
-.ctlg{
+.ctlg {
     background-color: var(--catalogo);
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-.sc{
-    flex-shrink: 0;
-    width: 90%;
-    height: 23vh;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-.sc header{
-    width: 100%;
-    height: 15%;
-    margin-bottom: 2%;
-}
-.sc header p{
-    font-size: 15px;
-    margin: 0;
-    margin-left: 1%;
-}
-.sc main{
-    width: 99%;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    overflow-x: scroll;
-}
-.sc main::-webkit-scrollbar, .ctlg main::-webkit-scrollbar {
-    display: none;
+    padding: 8px 0 60px;
+    gap: 12px;
 }
 
-</style>
-<style is:global>
-.plcl{
-    height: 100%;
-    aspect-ratio: 3/2;
-    margin-left: 2%;
-    margin-right: 2%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    overflow: hidden;
+.sc {
     flex-shrink: 0;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 0;
+    padding-top: 8px;
+}
+
+.row-header {
+    display: flex;
     align-items: center;
-    }
-.plcl img{
-    height: 70%;
-    aspect-ratio: 6/4;
-    overflow: hidden;
+    gap: 10px;
+    padding: 0 48px 12px;
+    border-bottom: none;
 }
-.plcl p{
-    font-size: 15px;
+
+.row-badge {
+    font-size: 14px;
+}
+
+.row-header p {
+    font-family: 'Bebas Neue', 'Impact', sans-serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #fff;
     margin: 0;
+    text-transform: uppercase;
 }
-.ml{
-    width: 90px;
-    height: 90px;
-    background-color: white;
-    border-radius: 90px;
+
+.row-wrap {
+    position: relative;
 }
-.ml button{
-    height: 50%;
+.row-wrap::before,
+.row-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    z-index: 2;
+    pointer-events: none;
+}
+.row-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, var(--catalogo, #141414), transparent);
+}
+.row-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, var(--catalogo, #141414), transparent);
+}
+
+.sc main {
     width: 100%;
-    color: black;
+    display: flex;
+    align-items: stretch;
+    overflow-x: scroll;
+    padding: 12px 48px 20px;
+    gap: 12px;
+    scroll-behavior: smooth;
 }
+.sc main::-webkit-scrollbar { display: none; }
+</style>
+
+<style is:global>
+/* ── Movie card ── */
+.plcl {
+    flex-shrink: 0;
+    width: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.25s cubic-bezier(.25,.46,.45,.94),
+                box-shadow 0.25s;
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+}
+
+.plcl:hover {
+    transform: scale(1.1) translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.7);
+    z-index: 10;
+}
+
+.plcl img {
+    width: 100%;
+    aspect-ratio: 3/2;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.92);
+    transition: filter 0.25s;
+}
+
+.plcl:hover img {
+    filter: brightness(1.05);
+}
+
+.plcl p {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    color: #ddd;
+    margin: 0;
+    padding: 8px 10px;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s;
+}
+
+.plcl:hover p { color: #fff; }
+
+/* ── Red top border on hover ── */
+.plcl::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: #e50914;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+    z-index: 3;
+}
+.plcl:hover::before { transform: scaleX(1); }
+
+/* ── Popup / Mi lista ── */
+.ml {
+    background: #1c1c1c;
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 6px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 180px;
+}
+
+.ml button {
+    width: 100%;
+    padding: 8px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.15s;
+}
+.ml button:first-child:hover { background: rgba(229,9,20,0.25); }
+.ml button:last-child:hover { background: rgba(255,255,255,0.08); }
 </style>

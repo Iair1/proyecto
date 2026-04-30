@@ -1,6 +1,5 @@
-
 <script>
-	import ElFinDelVerano from "../assets/portadas/ElFinDelVerano.webp"
+    import ElFinDelVerano from "../assets/portadas/ElFinDelVerano.webp"
     import LosImpresionantes from "../assets/portadas/LosImpresionantes.webp"
     import Ti from "../assets/portadas/Ti.png"
     import Uanderuoman from "../assets/portadas/uanderuoman.jpg"
@@ -8,20 +7,27 @@
     import JuegoDeSillas from "../assets/portadas/JuegoDeSillas.png"
     import VelocesYEnojados from "../assets/portadas/VelocesYEnojados.jpg"
 
-	document.getElementById("modoOscuro")?.addEventListener("change", mOsc)
-	function mOsc(e: Event){
-        if((e.target as HTMLInputElement).checked){
-            document.documentElement.style.setProperty('--side', '#282828');
-            document.documentElement.style.setProperty('--txt-color', 'white');
-            document.documentElement.style.setProperty('--catalogo', 'rgb(54, 54, 54)');
-            document.documentElement.style.setProperty('--borde', '#cccccc');
+    // ── Default: dark mode ON ──
+    setDarkMode(true);
+    (document.getElementById("modoOscuro") as HTMLInputElement).checked = true;
+
+    document.getElementById("modoOscuro")?.addEventListener("change", (e) => {
+        setDarkMode((e.target as HTMLInputElement).checked);
+    });
+
+    function setDarkMode(dark: boolean) {
+        if (dark) {
+            document.documentElement.style.setProperty('--side', '#111111');
+            document.documentElement.style.setProperty('--txt-color', '#ffffff');
+            document.documentElement.style.setProperty('--catalogo', '#141414');
+            document.documentElement.style.setProperty('--borde', '#333333');
         } else {
-            document.documentElement.style.setProperty('--side', '#e0e0e0');
-            document.documentElement.style.setProperty('--txt-color', 'black');
-            document.documentElement.style.setProperty('--catalogo', 'rgb(200, 200, 200)');
-            document.documentElement.style.setProperty('--borde', '#606060');
+            document.documentElement.style.setProperty('--side', '#e8e8e8');
+            document.documentElement.style.setProperty('--txt-color', '#111111');
+            document.documentElement.style.setProperty('--catalogo', '#f0f0f0');
+            document.documentElement.style.setProperty('--borde', '#aaaaaa');
         }
-	}
+    }
 
     let peliculas = [
         {
@@ -98,171 +104,158 @@
         }
     ]
 
-let separadorGeneral = 1000000000
-let listas=["PodriaGustarte", "MasPopulares", "Clasicos", "LoMasNuevo"]
-let generos: string[] = []
-ponePelis()
-
-
-for(let i = 0; i < 6; i++){
-    document.getElementById("filtro"+i)?.addEventListener("click", function(){filtros(document.getElementById("filtro"+i) as HTMLButtonElement)})
-}
-document.getElementById("buscador")?.addEventListener("change", ponePelis)
-function filtros(x: HTMLButtonElement){
-    let filtro = x.value
-    if (generos.includes(filtro)){
-        generos.splice(generos.indexOf(filtro), 1)
-        x.style.borderStyle = "none"
-    } else {
-        generos.push(filtro)
-        x.style.borderStyle = "solid"
-    }
-    console.log(generos)
+    let separadorGeneral = 1000000000
+    let listas = ["PodriaGustarte", "MasPopulares", "Clasicos", "LoMasNuevo"]
+    let generos: string[] = []
     ponePelis()
-}
 
-function ponePelis(){
-    let nmi = document.getElementById("MiLista")
-    if(nmi){ nmi.innerHTML="" }
-    for(let i = 0; i<listas.length; i++){
-        let a = document.getElementById(listas[i]);
-        if (a){ a.innerHTML=""}
+    for (let i = 0; i < 6; i++) {
+        document.getElementById("filtro" + i)?.addEventListener("click", function () {
+            filtros(document.getElementById("filtro" + i) as HTMLButtonElement)
+        })
     }
-    for(let i = 0; i < peliculas.length; i++){
-        let papa = false
-        let p = peliculas[i]
-        if(p.nombre.toLowerCase().includes((document.getElementById("buscador") as HTMLInputElement).value.toLowerCase())){
-            if (generos.length>0){
-                for(let j = 0; j < generos.length; j++){
-                    if(p.generos.includes(generos[j])){
-                        papa = true
+    document.getElementById("buscador")?.addEventListener("input", ponePelis)
+
+    function filtros(x: HTMLButtonElement) {
+        let filtro = x.value
+        if (generos.includes(filtro)) {
+            generos.splice(generos.indexOf(filtro), 1)
+            x.classList.remove("active")
+        } else {
+            generos.push(filtro)
+            x.classList.add("active")
+        }
+        ponePelis()
+    }
+
+    function crearCard(p: typeof peliculas[0], idSuffix: string | number): HTMLElement {
+        let img = document.createElement("img")
+        img.src = p.portada
+        img.alt = p.nombre
+        img.loading = "lazy"
+
+        let txt = document.createElement("p")
+        txt.innerText = p.nombre
+
+        let sction = document.createElement("section")
+        sction.classList.add("plcl")
+        sction.id = p.nombre.replaceAll(" ", "") + idSuffix
+        sction.appendChild(img)
+        sction.appendChild(txt)
+        sction.addEventListener("click", popup)
+        return sction
+    }
+
+    function ponePelis() {
+        let nmi = document.getElementById("MiLista")
+        if (nmi) { nmi.innerHTML = "" }
+        for (let i = 0; i < listas.length; i++) {
+            let a = document.getElementById(listas[i]);
+            if (a) { a.innerHTML = "" }
+        }
+
+        const query = (document.getElementById("buscador") as HTMLInputElement).value.toLowerCase()
+
+        for (let i = 0; i < peliculas.length; i++) {
+            let papa = false
+            let p = peliculas[i]
+            if (p.nombre.toLowerCase().includes(query)) {
+                if (generos.length > 0) {
+                    for (let j = 0; j < generos.length; j++) {
+                        if (p.generos.includes(generos[j])) { papa = true }
                     }
+                } else { papa = true }
+            }
+            if (papa) {
+                for (let j = 0; j < p.ubicacion.length; j++) {
+                    let ub = document.getElementById(p.ubicacion[j])
+                    ub?.appendChild(crearCard(p, separadorGeneral++))
                 }
-            } else { papa = true}
+                if (p.miLista) {
+                    document.getElementById("MiLista")?.appendChild(crearCard(p, p.pml))
+                }
+            }
         }
-        if(papa){
-            for(let j = 0; j < p.ubicacion.length; j++){
-                let ub=document.getElementById(p.ubicacion[j])
-                let img = document.createElement("img")
-                img.src = p.portada
-                img.alt = p.nombre
-                let txt = document.createElement("p")
-                txt.innerText = p.nombre
-                let sction = document.createElement("section")
-                sction.classList.add("plcl")
-                sction.id = p.nombre.replaceAll(" ", "")+separadorGeneral
+    }
+
+    let popupNumero = 0;
+
+    function popup(e: MouseEvent) {
+        // Remove any existing popup
+        document.querySelectorAll(".ml").forEach(el => el.remove())
+
+        let ml = document.createElement("div")
+        ml.classList.add("ml")
+        ml.id = "ml" + popupNumero
+
+        let btn1 = document.createElement("button")
+        let btn2 = document.createElement("button")
+        btn1.innerText = "➕  Agregar a mi lista"
+        btn2.innerText = "✕  Quitar de mi lista"
+
+        btn1.addEventListener("click", (ev) => {
+            ev.stopPropagation()
+            let cosoimp = (e.target as HTMLElement).closest(".plcl")?.id ?? ""
+            cosoimp = cosoimp.substring(0, cosoimp.length - 10)
+            const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
+            if (peli && !peli.miLista) {
+                peli.miLista = true
+                peli.pml = separadorGeneral
                 separadorGeneral++
-                sction.appendChild(img)
-                sction.appendChild(txt)
-                sction.addEventListener("click", popup)
-                ub?.appendChild(sction)
+                document.getElementById("MiLista")?.appendChild(crearCard(peli, peli.pml))
+                // Show Mi Lista section
+                const sc = document.getElementById("sc-milista")
+                if (sc) sc.style.display = "flex"
             }
-            if(p.miLista){
-                let ub=document.getElementById("MiLista")
-                let img = document.createElement("img")
-                img.src = p.portada
-                img.alt = p.nombre
-                let txt = document.createElement("p")
-                txt.innerText = p.nombre
-                let sction = document.createElement("section")
-                sction.classList.add("plcl")
-                sction.id = p.nombre.replaceAll(" ", "")+p.pml
-                sction.appendChild(img)
-                sction.appendChild(txt)
-                sction.addEventListener("click", popup)
-                ub?.appendChild(sction)
+            ml.remove()
+        })
+
+        btn2.addEventListener("click", (ev) => {
+            ev.stopPropagation()
+            let cosoimp = (e.target as HTMLElement).closest(".plcl")?.id ?? ""
+            cosoimp = cosoimp.substring(0, cosoimp.length - 10)
+            const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
+            if (peli && peli.miLista) {
+                peli.miLista = false
+                document.getElementById(cosoimp + String(peli.pml))?.remove()
+            }
+            ml.remove()
+        })
+
+        ml.style.position = "fixed"
+        ml.style.left = Math.min(e.clientX, window.innerWidth - 200) + 'px'
+        ml.style.top = Math.min(e.clientY - 10, window.innerHeight - 100) + 'px'
+        ml.style.zIndex = "9999"
+
+        ml.appendChild(btn1)
+        ml.appendChild(btn2)
+        document.body.appendChild(ml)
+        popupNumero++
+
+        e.stopPropagation()
+    }
+
+    document.addEventListener("click", () => {
+        document.querySelectorAll(".ml").forEach(el => el.remove())
+    })
+
+    // ── Sidebar toggle ──
+    let aside = false
+    document.getElementById("sacaraside")?.addEventListener("click", filtro)
+
+    function filtro() {
+        let a = document.getElementById("preferencias")
+        let b = document.getElementById("sacaraside")
+        if (a && b) {
+            if (aside) {
+                a.style.display = "none"
+                aside = false
+                b.style.left = "0%"
+            } else {
+                a.style.display = "flex"
+                aside = true
+                b.style.left = "300px"
             }
         }
     }
-}
-let popupNumero = 0;
-function popup(e: MouseEvent){
-    let ml = document.createElement("div")
-    ml.classList.add("ml")
-    ml.id = "ml"+popupNumero
-    let btn1 = document.createElement("button")
-    let btn2 = document.createElement("button")
-    btn1.innerText = "La quiero en mi lista"
-    btn2.innerText = "No quiero en mi lista"
-
-    btn1.addEventListener("click", function(){
-        let peli = null
-        let cosoimp = (e.target as HTMLElement).parentElement?.id
-        console.log(cosoimp)
-        cosoimp = cosoimp?.substring(0, cosoimp.length-10)
-        for(let i = 0; i < peliculas.length; i++){
-            console.log(peliculas[i].nombre.replaceAll(" ", ""))
-            if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
-                peli = peliculas[i]
-            }
-        }
-        if(peli?.miLista == false && peli){
-            peli.miLista = true
-            let img = document.createElement("img")
-            img.src = peli.portada
-            img.alt = peli.nombre
-            let txt = document.createElement("p")
-            txt.innerText = peli.nombre
-            let sction = document.createElement("section")
-            sction.classList.add("plcl")
-            sction.id = peli.nombre.replaceAll(" ", "")+separadorGeneral
-            peli.pml = separadorGeneral
-            separadorGeneral++
-            sction.appendChild(img)
-            sction.appendChild(txt)
-            sction.addEventListener("click", popup)
-            document.getElementById("MiLista")?.appendChild(sction)
-        }
-    
-    })
-    btn2.addEventListener("click", function(){
-        let peli =  null
-        let cosoimp = (e.target as HTMLElement).parentElement?.id
-        cosoimp = cosoimp?.substring(0, cosoimp.length-10)
-        for(let i = 0; i < peliculas.length; i++){
-            if(peliculas[i].nombre.replaceAll(" ", "") == cosoimp){
-                peli = peliculas[i]
-            }
-        }
-        if(peli?.miLista == true){
-            peli.miLista = false
-            console.log(cosoimp+String(peli.pml))
-            document.getElementById(cosoimp+String(peli.pml))?.remove()
-        }
-    
-    })
-    
-
-    ml.style.position = "absolute"
-    ml.style.left = (e.clientX - 50) + 'px';
-    ml.style.top = (e.clientY - 25) + 'px'
-
-    ml.appendChild(btn1)
-    ml.appendChild(btn2)
-    document.body.appendChild(ml)
-}
-document.addEventListener("click", borrarcoso)
-function borrarcoso(){
-    let ml = document.getElementsByClassName("ml")
-    popupNumero++
-    if(ml[0] && ml[0].id != "ml"+(popupNumero-1)){
-        ml[0].remove()
-    }
-}
-
-let aside = false
-document.getElementById("sacaraside")?.addEventListener("click", filtro)
-function filtro(){
-    let a = document.getElementById("preferencias")
-    let b = document.getElementById("sacaraside")
-    if(a && b){if(aside){
-        a.style.display = "none"
-        aside = false
-        b.style.left = "0%"
-    } else {
-        a.style.display = "flex"
-        aside = true
-        b.style.left = "32%"
-    }}
-}
 </script>
