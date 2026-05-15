@@ -14,7 +14,4 @@ app.use("/usuarios", UsuariosRouter);
 //app.use("/peliculas", PeliculasRouter);
 
 //prueba
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en puerto ${PORT}`);
-});
+export default app;
