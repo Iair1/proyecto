@@ -48,8 +48,21 @@ const iniciarSesion = async (nombre, contrasena) => {
     }
 }
 
+const prueba = async()=>{
+    const client = new Client(config);
+    try{
+        await client.connect();
+        return{"HOLA": "PASASTE LA PRUEBA EXITOSAMENTE"}
+    }catch(error){
+        throw error;
+    }finally{
+        await client.end()
+    }
+}
+
 const UsuariosService = {
     crearCuenta,
-    iniciarSesion
+    iniciarSesion,
+    prueba
 }
 export default UsuariosService;

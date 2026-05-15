@@ -6,6 +6,7 @@ const router = Router();
 
 router.post("/registrarse", UsuariosController.crearCuenta);
 router.post("/iniciarSesion", UsuariosController.iniciarSesion);
+router.get("/prueba", UsuariosController.prueba);
 //router.get("/perfil", verifyToken, UsuariosController.perfil);
 
 export default router;

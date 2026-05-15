@@ -28,8 +28,18 @@ const iniciarSesion = async (req, res) => {
     }
 }
 
+const prueba = async(req, res)=>{
+    try{
+        const mensaje= await UsuariosService.prueba();
+        res.status(200).json({messaje: "Prueba exitosa", mensaje})
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+}
+
 const UsuariosController = {
     crearCuenta,
-    iniciarSesion
+    iniciarSesion,
+    prueba
 }
 export default UsuariosController;
