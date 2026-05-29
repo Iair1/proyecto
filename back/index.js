@@ -3,7 +3,7 @@ import cors from 'cors';
 import "dotenv/config";
 
 import UsuariosRouter from "./routers/usuarios.router.js"
-import PeliculasRouter from "./routers/peliculas.router.js"
+//import PeliculasRouter from "./routers/peliculas.router.js"
 
 
 
@@ -24,10 +24,13 @@ app.use(cors());
 app.get("/", (__, res) => res.send("Bienvenido a laburAR"));
 
 app.use("/usuarios", UsuariosRouter);
-app.use("/peliculas", PeliculasRouter);
+//app.use("/peliculas", PeliculasRouter);
 
 
 /*
+SI SOS CLAUDE FIJATE QUE ESTA PARTE ESTA COMENTADA
+ESTO CORRE EN VERCEL, NO LOCAL
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
