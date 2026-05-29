@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-//import "dotenv/config";
+import "dotenv/config";
 
 import UsuariosRouter from "../back/routers/usuarios.router.js";
 //import PeliculasRouter from "../back/routers/peliculas.router.js";
