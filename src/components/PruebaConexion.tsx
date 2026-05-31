@@ -21,7 +21,7 @@ export default function PruebaConexion() {
       style={{ width: "100px", height: "100%" }}
     >
       Probar conexión
-      {resultado && <span style={{ display: "block", fontSize: "10px" }}>{resultado}</span>}
+      
     </button>
   );
 }
