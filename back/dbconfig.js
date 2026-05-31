@@ -1,9 +1,9 @@
 const config = {
-    host: 'ep-quiet-butterfly-acwocpa2-pooler.sa-east-1.aws.neon.tech',
-    database: 'neondb',
-    user: 'neondb_owner',
-    password: 'npg_2ZvgXq8kbaLf',
-    post: 5432,
-    ssl: true
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    port: 5432,
+    ssl: { rejectUnauthorized: false } 
 }
 export default config;
