@@ -1,4 +1,6 @@
 cd "./"
 echo Instalando cosas...
 echo Iniciando frontnd... 
+start cmd /k "npm i"
 start cmd /k "npm run dev"
+start cmd /k "npm start"
