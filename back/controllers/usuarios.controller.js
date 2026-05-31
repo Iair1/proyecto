@@ -20,8 +20,9 @@ const iniciarSesion = async (req, res) => {
         if (!nombre || !contrasena) {
             return res.status(400).json({ message: "Debe completar todos los campos" });
         }
-        const token = await UsuariosService.iniciarSesion(nombre, contrasena);
-        res.status(200).json({ token: token });
+        const inf = await UsuariosService.iniciarSesion(nombre, contrasena);
+
+        res.status(200).json({ token: inf.token, mi_lista: inf.mi_lista });
     }
     catch(error){
         res.status(500).json({ message: error.message });
@@ -37,9 +38,38 @@ const prueba = async(req, res)=>{
     }
 }
 
+const ponerEnLista = async(req, res)=>{
+    try{
+        const {userid, peli} = req.body;
+        if(!userid || !peli){
+            return res.status(400).json({message: "Debe completar todos los campos"})
+        }
+        const resultado = await UsuariosService.ponerEnLista(userid, peli);
+        res.status(200).json({ message: "Película añadida a la lista", resultado });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+const sacarDeLista = async(req, res)=>{
+    try{
+        const {userid, peli} = req.body;
+        if(!userid || !peli){
+            return res.status(400).json({message: "Debe completar todos los campos"})
+        }
+        const resultado = await UsuariosService.sacarDeLista(userid, peli);
+        res.status(200).json({ message: "Película eliminada de la lista", resultado });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+
 const UsuariosController = {
     crearCuenta,
     iniciarSesion,
+    ponerEnLista,
+    sacarDeLista,
     prueba
 }
 export default UsuariosController;

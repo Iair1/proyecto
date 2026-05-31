@@ -40,13 +40,53 @@ const iniciarSesion = async (nombre, contrasena) => {
         JWT_SECRET,
         { expiresIn: "1h" }
         );
-        return token;
+        const ML = await client.query("SELECT * FROM mi_lista INNER JOIN peliculas ON mi_lista.peli_id = peliculas.id WHERE userid = $1", [dbUser.userid]);
+        const inf = {
+            token: token,
+            mi_lista: ML.rows
+        }
+        return inf;
     } catch (error) {
         throw error;
     } finally {
         await client.end();
     }
 }
+
+const ponerEnLista = async (userid, peli) => {
+    const client = new Client(config);
+    try {
+        await client.connect();
+        const peli_id_filas = await client.query("SELECT id FROM peliculas WHERE titulo = $1", [peli]);
+        const result = await client.query(
+            "INSERT INTO mi_lista (user_id, peli_id) VALUES ($1, $2) RETURNING *",
+            [userid, peli_id_filas.rows[0].id]
+        );
+        return result.rows[0];
+    } catch (error) {
+        throw error;
+    } finally {
+        await client.end();
+    }
+}
+
+const sacarDeLista = async (userid, peli) => {
+    const client = new Client(config);
+    try {
+        await client.connect();
+        const peli_id_filas = await client.query("SELECT id FROM peliculas WHERE titulo = $1", [peli]);
+        const result = await client.query(
+            "DELETE FROM mi_lista WHERE user_id = $1 AND peli_id = $2 RETURNING *",
+            [userid, peli_id_filas.rows[0].id]
+        );
+        return result.rows[0];
+    } catch (error) {
+        throw error;
+    } finally {
+        await client.end();
+    }
+}
+
 
 const prueba = async()=>{
     const client = new Client(config);
@@ -63,6 +103,8 @@ const prueba = async()=>{
 const UsuariosService = {
     crearCuenta,
     iniciarSesion,
+    ponerEnLista,
+    sacarDeLista,
     prueba
 }
 export default UsuariosService;
