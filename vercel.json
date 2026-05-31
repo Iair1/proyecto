@@ -7,6 +7,6 @@
   },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index.js" },
-    { "source": "/src/pages/(.*)", "destination": "/index.astro" }
+    { "source": "/(.*)", "destination": "/" }
   ]
 }
