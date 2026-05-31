@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from 'react'
 
 export default function PruebaConexion() {
   const [resultado, setResultado] = useState<string>("");
