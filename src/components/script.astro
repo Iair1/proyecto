@@ -264,6 +264,7 @@ window.addEventListener("usuarioLogueado", (e: Event) => {
   // mi_lista es un array de { nombre: "..." } según tu query SQL
 
   for (const item of mi_lista) {
+    console.log(item.nombre);
     const peli = peliculas.find(p => p.nombre === item.nombre);
     if (peli) {
       peli.miLista = true;
