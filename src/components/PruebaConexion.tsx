@@ -67,21 +67,21 @@ export default function PruebaConexion() {
       </button>
       </div>
 
-            <div style={{ width: "100px", height: "25%", backgroundColor: "green"}}>
+        <div style={{ width: "100px", height: "25%", backgroundColor: "green"}}>
         <input
-        id="nombre"
+        id="nombreCCX"
         type="text"
         placeholder="Usuario"
       />
       <input
-        id="contrasena"
+        id="contrasenaCC"
         type="password"
         placeholder="Contraseña"
       />
       <button
         onClick={() => {
-          const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
-          const contrasena = (document.getElementById("contrasena") as HTMLInputElement).value;
+          const nombre = (document.getElementById("nombreCC") as HTMLInputElement).value;
+          const contrasena = (document.getElementById("contrasenaCC") as HTMLInputElement).value;
           crearCuenta(nombre, contrasena);
         }}
       >
