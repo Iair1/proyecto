@@ -10,7 +10,7 @@ const verifyToken = (req, res, next) => {
         req.userid = decoded.id;
         next();
     } catch (error) {
-        return res.status(401).json({ message: "Token inválido o expirado"});
+        return res.status(401).json({ message: "Token inválido o expirado" });
     }
 };
 
