@@ -14,7 +14,7 @@ export default function PruebaConexion() {
     }
   };
   const iniciarSesion = async (nombre: string, contrasena: string) => {
-    const response = await fetch("/api/usuarios/login", {
+    const response = await fetch("/api/usuarios/iniciarSesion", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, contrasena }),
