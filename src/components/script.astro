@@ -260,6 +260,7 @@
     }
 /**/ 
 window.addEventListener("usuarioLogueado", (e: Event) => {
+    console.log("Evento recibido en script.astro");
   const { mi_lista } = (e as CustomEvent).detail;
   // mi_lista es un array de { nombre: "..." } según tu query SQL
     
