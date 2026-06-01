@@ -23,6 +23,16 @@ export default function PruebaConexion() {
     console.log(token);
   }
 
+  const crearCuenta = async (nombre: string, contrasena: string) => {
+    const response = await fetch("/api/usuarios/registrarse", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ nombre, contrasena }),
+    })
+    const mensaje = await response.json();
+    console.log(mensaje);
+  }
+
   return (
 
     <div style={{ width: "100px", height: "100%" }}>
@@ -35,7 +45,7 @@ export default function PruebaConexion() {
         
       </button>
 
-      <div style={{ width: "100px", height: "50%", backgroundColor: "red"}}>
+      <div style={{ width: "100px", height: "25%", backgroundColor: "red"}}>
         <input
         id="nombre"
         type="text"
@@ -56,6 +66,29 @@ export default function PruebaConexion() {
         Iniciar Sesión
       </button>
       </div>
+
+            <div style={{ width: "100px", height: "25%", backgroundColor: "green"}}>
+        <input
+        id="nombre"
+        type="text"
+        placeholder="Usuario"
+      />
+      <input
+        id="contrasena"
+        type="password"
+        placeholder="Contraseña"
+      />
+      <button
+        onClick={() => {
+          const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
+          const contrasena = (document.getElementById("contrasena") as HTMLInputElement).value;
+          crearCuenta(nombre, contrasena);
+        }}
+      >
+        Crear Cuenta
+      </button>
+      </div>
+
   </div>
 
   );
