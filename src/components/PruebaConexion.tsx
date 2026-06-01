@@ -74,16 +74,18 @@ export default function PruebaConexion() {
     console.log(mensaje);
   }
 
+  const cerrarSesion = () => {
+    tokenF = "";
+  }
   return (
 
     <div style={{ width: "100px", height: "100%" }}>
       <button
-        id="pruebaConexion"
-        onClick={handleClick}
+        id="cerrar sesion"
+        onClick={cerrarSesion}
         style={{ width: "100px", height: "50%" }}
       >
-        Probar conexión
-        
+        Cerrar Sesión
       </button>
 
       <div style={{ width: "100px", height: "25%", backgroundColor: "red"}}>
