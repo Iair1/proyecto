@@ -37,12 +37,12 @@ const iniciarSesion = async (nombre, contrasena) => {
             throw new Error("Contraseña invalida");
         }
         const token = jwt.sign(
-        { userid: dbUser.userid, nombre: dbUser.nombre, rol: dbUser.rol },
+        { userid: dbUser.id, nombre: dbUser.nombre, rol: dbUser.rol },
         JWT_SECRET,
         { expiresIn: "1h" }
         );
-        console.log(dbUser.userid);
-        const ML = await client.query("SELECT * FROM peliculas P INNER JOIN mi_lista M ON P.id = M.peli_id WHERE M.user_id = $1", [dbUser.userid]);
+        console.log(dbUser.id);
+        const ML = await client.query("SELECT * FROM peliculas P INNER JOIN mi_lista M ON P.id = M.peli_id WHERE M.user_id = $1", [dbUser.id]);
         const inf = {
             token: token,
             mi_lista: ML.rows
