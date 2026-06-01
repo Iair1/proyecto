@@ -61,7 +61,7 @@ const ponerEnLista = async (userid, peli) => {
     const client = new Client(config);
     try {
         await client.connect();
-        const peli_id_filas = await client.query("SELECT id FROM peliculas WHERE titulo = $1", [peli]);
+        const peli_id_filas = await client.query("SELECT id FROM peliculas WHERE nombre = $1", [peli]);
         const result = await client.query(
             "INSERT INTO mi_lista (user_id, peli_id) VALUES ($1, $2) RETURNING *",
             [userid, peli_id_filas.rows[0].id]
@@ -78,7 +78,7 @@ const sacarDeLista = async (userid, peli) => {
     const client = new Client(config);
     try {
         await client.connect();
-        const peli_id_filas = await client.query("SELECT id FROM peliculas WHERE titulo = $1", [peli]);
+        const peli_id_filas = await client.query("SELECT id FROM peliculas WHERE nombre = $1", [peli]);
         const result = await client.query(
             "DELETE FROM mi_lista WHERE user_id = $1 AND peli_id = $2 RETURNING *",
             [userid, peli_id_filas.rows[0].id]

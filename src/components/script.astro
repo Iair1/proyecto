@@ -7,6 +7,9 @@
     import JuegoDeSillas from "../assets/portadas/JuegoDeSillas.png"
     import VelocesYEnojados from "../assets/portadas/VelocesYEnojados.jpg"
 
+
+    import {ponerEnLista, sacarDeLista} from "./PruebaConexion"
+
     // ── Default: dark mode ON ──
     setDarkMode(true);
     (document.getElementById("modoOscuro") as HTMLInputElement).checked = true;
@@ -206,6 +209,7 @@
                 // Show Mi Lista section
                 const sc = document.getElementById("sc-milista")
                 if (sc) sc.style.display = "flex"
+                ponerEnLista(peli.nombre) // Llamada a la función para agregar a la lista en el backend
             }
             ml.remove()
         })
@@ -218,6 +222,7 @@
             if (peli && peli.miLista) {
                 peli.miLista = false
                 document.getElementById(cosoimp + String(peli.pml))?.remove()
+                sacarDeLista(peli.nombre) // Llamada a la función para quitar de la lista en el backend
             }
             ml.remove()
         })
@@ -270,7 +275,8 @@ window.addEventListener("usuarioLogueado", (e: Event) => {
     const peli = peliculas.find(p => p.nombre === item.nombre);
     if (peli) {
       peli.miLista = true;
-      peli.pml = separadorGeneral++;
+      peli.pml = separadorGeneral;
+     separadorGeneral++;
     }
   }
 

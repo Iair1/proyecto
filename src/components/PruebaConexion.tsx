@@ -1,5 +1,29 @@
 import React, { useState } from 'react'
 
+let tokenF: string= "";
+
+export async function ponerEnLista(nombreP: string) {
+  if (tokenF != "") {
+  const respuesta = await fetch("api/usuarios/ponerEnLista", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
+    body: JSON.stringify({peli: "nombreP" })
+  });
+    return await respuesta.json();
+  }
+}
+
+export async function sacarDeLista(nombreP: string) {
+  if (tokenF != "") {
+  const respuesta = await fetch("api/usuarios/sacarDeLista", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
+    body: JSON.stringify({peli: "nombreP" })
+  });
+    return await respuesta.json();
+  }
+}
+
 export default function PruebaConexion() {
   const [resultado, setResultado] = useState<string>("");
 
@@ -22,6 +46,7 @@ export default function PruebaConexion() {
     const data = await response.json();
     console.log(data);
     console.log(`Mi lista: ${data.mi_lista}`);
+    tokenF = data.token;
       /**/
       const evento = new CustomEvent("usuarioLogueado", {
         detail: { mi_lista: data.mi_lista, token: data.token }
