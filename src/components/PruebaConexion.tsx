@@ -20,7 +20,7 @@ export default function PruebaConexion() {
       body: JSON.stringify({ nombre, contrasena }),
     })
     const data = await response.json();
-    console.log(data);
+    console.log(data.mi_lista);
       /**/
       const evento = new CustomEvent("usuarioLogueado", {
         detail: { mi_lista: data.mi_lista, token: data.token }
