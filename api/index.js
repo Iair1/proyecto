@@ -12,5 +12,8 @@ app.get("/api", (__, res) => res.send("Bienvenido a la API de Películas"));
 
 app.use("/api/usuarios", UsuariosRouter);
 
+
+
+
 // Este export es el que Vercel necesita
 export default app;

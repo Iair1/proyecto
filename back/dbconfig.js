@@ -6,4 +6,6 @@ const config = {
     port: 5432,
     ssl: { rejectUnauthorized: false } 
 }
+
+
 export default config;
