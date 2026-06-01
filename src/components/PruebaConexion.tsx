@@ -69,7 +69,7 @@ export default function PruebaConexion() {
 
         <div style={{ width: "100px", height: "25%", backgroundColor: "green"}}>
         <input
-        id="nombreCCX"
+        id="nombreCC"
         type="text"
         placeholder="Usuario"
       />
