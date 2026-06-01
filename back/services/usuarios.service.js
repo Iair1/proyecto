@@ -40,7 +40,7 @@ const iniciarSesion = async (nombre, contrasena) => {
         JWT_SECRET,
         { expiresIn: "1h" }
         );
-        const ML = await client.query("SELECT P.nombre FROM mi_lista M INNER JOIN peliculas P ON M.peli_id = P.id WHERE M.userid = $1", [dbUser.userid]);
+        const ML = await client.query("SELECT P.nombre FROM mi_lista M INNER JOIN peliculas P ON M.peli_id = P.id WHERE M.user_id = $1", [dbUser.userid]);
         const inf = {
             token: token,
             mi_lista: ML.rows
