@@ -3,24 +3,30 @@ import React, { useState } from 'react'
 let tokenF: string= "";
 
 export async function ponerEnLista(nombreP: string) {
+  console.log("No te preocupes que me llamaron")
   if (tokenF != "") {
   const respuesta = await fetch("api/usuarios/ponerEnLista", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
-    body: JSON.stringify({peli: "nombreP" })
+    body: JSON.stringify({peli: nombreP })
   });
-    return await respuesta.json();
+    let r = await respuesta.json();
+    console.log(r);
+    return r;
   }
 }
 
 export async function sacarDeLista(nombreP: string) {
+  console.log("No te preocupes que me llamaron")
   if (tokenF != "") {
   const respuesta = await fetch("api/usuarios/sacarDeLista", {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
-    body: JSON.stringify({peli: "nombreP" })
+    body: JSON.stringify({peli: nombreP })
   });
-    return await respuesta.json();
+    let r = await respuesta.json();
+    console.log(r);
+    return r;
   }
 }
 
