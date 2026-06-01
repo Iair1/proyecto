@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
             return res.status(401).json({ message: "Token no proporcionado" });
         }
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        req.userid = decoded.id;
+        req.id = decoded.id;
         next();
     } catch (error) {
         return res.status(401).json({ message: "Token inválido o expirado" });

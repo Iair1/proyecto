@@ -20,7 +20,7 @@ export async function sacarDeLista(nombreP: string) {
   console.log("No te preocupes que me llamaron")
   if (tokenF != "") {
   const respuesta = await fetch("api/usuarios/sacarDeLista", {
-    method: 'POST',
+    method: 'DELETE',
     headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
     body: JSON.stringify({peli: nombreP })
   });
