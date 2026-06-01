@@ -258,4 +258,22 @@
             }
         }
     }
+/**/ 
+window.addEventListener("usuarioLogueado", (e: Event) => {
+  const { mi_lista } = (e as CustomEvent).detail;
+  // mi_lista es un array de { nombre: "..." } según tu query SQL
+
+  for (const item of mi_lista) {
+    const peli = peliculas.find(p => p.nombre === item.nombre);
+    if (peli) {
+      peli.miLista = true;
+      peli.pml = separadorGeneral++;
+    }
+  }
+
+  ponePelis(); // rerenderizar con la lista actualizada
+});
+/**/
+
+
 </script>

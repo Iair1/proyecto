@@ -19,8 +19,14 @@ export default function PruebaConexion() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ nombre, contrasena }),
     })
-    const token = await response.json();
-    console.log(token);
+    const data = await response.json();
+    console.log(data.token);
+      /**/
+      const evento = new CustomEvent("usuarioLogueado", {
+        detail: { mi_lista: data.mi_lista, token: data.token }
+      });
+      window.dispatchEvent(evento);
+      /* */
   }
 
   const crearCuenta = async (nombre: string, contrasena: string) => {
