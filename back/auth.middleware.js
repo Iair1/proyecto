@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-export const authMiddleware = (req, res, next) => {
+const verifyToken = (req, res, next) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
@@ -14,11 +14,14 @@ export const authMiddleware = (req, res, next) => {
     }
 };
 
-export const adminMiddleware = (req, res, next) => {
-    authMiddleware(req, res, () => {
+const verifyAdmin = (req, res, next) => {
+    verifyToken(req, res, () => {
         if (!req.isAdmin) {
             return res.status(403).json({ message: "Acceso denegado. Solo admins" });
         }
         next();
     });
 };
+
+
+export { verifyToken, verifyAdmin };
