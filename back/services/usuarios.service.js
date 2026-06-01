@@ -31,6 +31,7 @@ const iniciarSesion = async (nombre, contrasena) => {
             throw new Error("Usuario no encontrado");
         }
         const dbUser = result.rows[0];
+        console.log("dbUser completo:", dbUser);
         const contraCorrecta = await bcrypt.compare(contrasena, dbUser.contrasena);
         if (!contraCorrecta) {
             throw new Error("Contraseña invalida");
