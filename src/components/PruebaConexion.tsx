@@ -35,7 +35,7 @@ export default function PruebaConexion() {
         
       </button>
 
-      <div>
+      <div style={{ width: "100px", height: "50%", backgroundColor: "red"}}>
         <input
         id="nombre"
         type="text"
