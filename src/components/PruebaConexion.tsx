@@ -49,6 +49,8 @@ export default function PruebaConexion() {
     }
   };
   const iniciarSesion = async (nombre: string, contrasena: string) => {
+    document.getElementById("nombre")?.setAttribute("value", "");
+    document.getElementById("contrasena")?.setAttribute("value", "");
     const response = await fetch("/api/usuarios/iniciarSesion", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -67,6 +69,8 @@ export default function PruebaConexion() {
   }
 
   const crearCuenta = async (nombre: string, contrasena: string) => {
+    document.getElementById("nombreCC")?.setAttribute("value", "");
+    document.getElementById("contrasenaCC")?.setAttribute("value", "");
     const response = await fetch("/api/usuarios/registrarse", {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -93,17 +97,17 @@ export default function PruebaConexion() {
       </button>
 
       <div style={{ width: "100px", height: "25%", backgroundColor: "blue"}}>
-        <input
+        <input style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         id="nombre"
         type="text"
         placeholder="Usuario"
       />
-      <input
+      <input style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         id="contrasena"
         type="password"
         placeholder="Contraseña"
       />
-      <button
+      <button style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasena") as HTMLInputElement).value;
@@ -116,16 +120,16 @@ export default function PruebaConexion() {
 
         <div style={{ width: "100px", height: "25%", backgroundColor: "green"}}>
         <input
-        id="nombreCC"
+        id="nombreCC" style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         type="text"
         placeholder="Usuario"
       />
       <input
-        id="contrasenaCC"
+        id="contrasenaCC" style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         type="password"
         placeholder="Contraseña"
       />
-      <button
+      <button style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombreCC") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasenaCC") as HTMLInputElement).value;
