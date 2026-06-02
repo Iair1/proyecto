@@ -15,6 +15,8 @@ export async function ponerEnLista(nombreP: string) {
     let r = await respuesta.json();
     console.log(r);
     return r;
+  } else{
+    console.log("Inicie sesion")
   }
 }
 

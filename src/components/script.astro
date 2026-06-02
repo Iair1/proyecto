@@ -196,33 +196,41 @@
         btn1.innerText = "➕  Agregar a mi lista"
         btn2.innerText = "✕  Quitar de mi lista"
 
-        btn1.addEventListener("click", (ev) => {
+        btn1.addEventListener("click", async (ev) => {
             ev.stopPropagation()
             let cosoimp = (e.target as HTMLElement).closest(".plcl")?.id ?? ""
             cosoimp = cosoimp.substring(0, cosoimp.length - 10)
             const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
             if (peli && !peli.miLista) {
-                peli.miLista = true
-                peli.pml = separadorGeneral
-                separadorGeneral++
-                document.getElementById("MiLista")?.appendChild(crearCard(peli, peli.pml))
-                // Show Mi Lista section
-                const sc = document.getElementById("sc-milista")
-                if (sc) sc.style.display = "flex"
-                ponerEnLista(peli.nombre) // Llamada a la función para agregar a la lista en el backend
+                const respuesta = await ponerEnLista(peli.nombre) // Llamada a la función para agregar a la lista en el backend
+                if(respuesta.message === "Película añadida a la lista"){
+                    peli.miLista = true
+                    peli.pml = separadorGeneral
+                    separadorGeneral++
+                    document.getElementById("MiLista")?.appendChild(crearCard(peli, peli.pml))
+                    // Show Mi Lista section
+                    const sc = document.getElementById("sc-milista")
+                    if (sc) sc.style.display = "flex" 
+                } else{
+                    alert("No se pudo conectar a la base de datos")
+                }
             }
             ml.remove()
         })
 
-        btn2.addEventListener("click", (ev) => {
+        btn2.addEventListener("click", async (ev) => {
             ev.stopPropagation()
             let cosoimp = (e.target as HTMLElement).closest(".plcl")?.id ?? ""
             cosoimp = cosoimp.substring(0, cosoimp.length - 10)
             const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
             if (peli && peli.miLista) {
-                peli.miLista = false
-                document.getElementById(cosoimp + String(peli.pml))?.remove()
-                sacarDeLista(peli.nombre) // Llamada a la función para quitar de la lista en el backend
+                const respuesta = await sacarDeLista(peli.nombre) // Llamada a la función para quitar de la lista en el backend
+                if(respuesta.message === "Película eliminada de la lista"){
+                    peli.miLista = false
+                    document.getElementById(cosoimp + String(peli.pml))?.remove()
+                }else{
+                    alert("No se pudo conectar a la base de datos")
+                }
             }
             ml.remove()
         })
