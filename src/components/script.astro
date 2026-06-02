@@ -203,7 +203,7 @@
             const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
             if (peli && !peli.miLista) {
                 const respuesta = await ponerEnLista(peli.nombre) // Llamada a la función para agregar a la lista en el backend
-                if(respuesta.message === "Película añadida a la lista"){
+                if(respuesta.message && respuesta.message === "Película añadida a la lista"){
                     peli.miLista = true
                     peli.pml = separadorGeneral
                     separadorGeneral++
@@ -225,7 +225,7 @@
             const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
             if (peli && peli.miLista) {
                 const respuesta = await sacarDeLista(peli.nombre) // Llamada a la función para quitar de la lista en el backend
-                if(respuesta.message === "Película eliminada de la lista"){
+                if(respuesta.message && respuesta.message === "Película eliminada de la lista"){
                     peli.miLista = false
                     document.getElementById(cosoimp + String(peli.pml))?.remove()
                 }else{
@@ -291,6 +291,15 @@ window.addEventListener("usuarioLogueado", (e: Event) => {
   ponePelis(); // rerenderizar con la lista actualizada
 });
 /**/
+
+window.addEventListener("desLogue", (e: Event) => {
+    console.log("Evento de deslogueo recibido en script.astro");
+    for (const peli of peliculas) {
+        peli.miLista = false;
+        peli.pml = 0;
+    }
+    ponePelis(); // rerenderizar con la lista actualizada
+});
 
 
 </script>

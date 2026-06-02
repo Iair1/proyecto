@@ -78,6 +78,8 @@ export default function PruebaConexion() {
 
   const cerrarSesion = () => {
     tokenF = "";
+    const evento = new CustomEvent("desLogueo");
+    window.dispatchEvent(evento);
   }
   return (
 
