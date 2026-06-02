@@ -5,7 +5,7 @@ let tokenF: string= "";
 
 export async function ponerEnLista(nombreP: string) {
   console.log("Token actual:", tokenF)
-  console.log("No te preocupes que me llamaron")
+  console.log("No te preiugyocupes que me llamaron")
   if (tokenF != "") {
   const respuesta = await fetch("api/usuarios/ponerEnLista", {
     method: 'POST',
@@ -20,11 +20,11 @@ export async function ponerEnLista(nombreP: string) {
 
 export async function sacarDeLista(nombreP: string) {
   console.log("Token actual:", tokenF)
-  console.log("No te preocupesGRYJFYJ que me llamaron")
+  console.log("No te preocupes que me llamaron")
   if (tokenF != "") {
   const respuesta = await fetch("api/usuarios/sacarDeLista", {
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json', 'authorization': tokenF },
+    headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
     body: JSON.stringify({peli: nombreP })
   });
     let r = await respuesta.json();
