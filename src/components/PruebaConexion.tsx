@@ -97,17 +97,17 @@ export default function PruebaConexion() {
       </button>
 
       <div style={{ width: "100px", height: "25%", backgroundColor: "blue", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around" }}>
-        <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+        <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         id="nombre"
         type="text"
         placeholder="Usuario"
       />
-      <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+      <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         id="contrasena"
         type="password"
         placeholder="Contraseña"
       />
-      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasena") as HTMLInputElement).value;
@@ -129,7 +129,7 @@ export default function PruebaConexion() {
         type="password"
         placeholder="Contraseña"
       />
-      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombreCC") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasenaCC") as HTMLInputElement).value;
