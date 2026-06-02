@@ -40,7 +40,8 @@ const prueba = async(req, res)=>{
 
 const ponerEnLista = async(req, res)=>{
     try{
-        const {userid, peli} = req.body;
+        const {peli} = req.body;
+        const userid = req.id;
         if(!userid || !peli){
             return res.status(400).json({message: "Debe completar todos los campos"})
         }
@@ -53,7 +54,8 @@ const ponerEnLista = async(req, res)=>{
 
 const sacarDeLista = async(req, res)=>{
     try{
-        const {userid, peli} = req.body;
+        const {peli} = req.body;
+        const userid = req.id;
         if(!userid || !peli){
             return res.status(400).json({message: "Debe completar todos los campos"})
         }
