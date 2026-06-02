@@ -203,6 +203,7 @@
             const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
             if (peli && !peli.miLista) {
                 const respuesta = await ponerEnLista(peli.nombre) // Llamada a la función para agregar a la lista en el backend
+                try{
                 if(respuesta.message && respuesta.message === "Película añadida a la lista"){
                     peli.miLista = true
                     peli.pml = separadorGeneral
@@ -214,6 +215,9 @@
                 } else{
                     alert("No se pudo conectar a la base de datos")
                 }
+                }  catch(error){
+                    alert("Ocurrió un error al conectar con la base de datos, inice sesion")
+                }
             }
             ml.remove()
         })
@@ -223,6 +227,7 @@
             let cosoimp = (e.target as HTMLElement).closest(".plcl")?.id ?? ""
             cosoimp = cosoimp.substring(0, cosoimp.length - 10)
             const peli = peliculas.find(p => p.nombre.replaceAll(" ", "") === cosoimp)
+            try{
             if (peli && peli.miLista) {
                 const respuesta = await sacarDeLista(peli.nombre) // Llamada a la función para quitar de la lista en el backend
                 if(respuesta.message && respuesta.message === "Película eliminada de la lista"){
@@ -231,6 +236,9 @@
                 }else{
                     alert("No se pudo conectar a la base de datos")
                 }
+            }
+            }catch(error){
+                alert("Ocurrió un error al conectar con la base de datos, inicie sesion")
             }
             ml.remove()
         })
@@ -292,7 +300,7 @@ window.addEventListener("usuarioLogueado", (e: Event) => {
 });
 /**/
 
-window.addEventListener("desLogue", (e: Event) => {
+window.addEventListener("desLogueo", (e: Event) => {
     console.log("Evento de deslogueo recibido en script.astro");
     for (const peli of peliculas) {
         peli.miLista = false;
