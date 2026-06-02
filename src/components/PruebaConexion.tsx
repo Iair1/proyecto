@@ -20,7 +20,7 @@ export async function ponerEnLista(nombreP: string) {
 
 export async function sacarDeLista(nombreP: string) {
   console.log("Token actual:", tokenF)
-  console.log("No te preocupes que me llamaron")
+  console.log("No te preocupesGRYJFYJ que me llamaron")
   if (tokenF != "") {
   const respuesta = await fetch("api/usuarios/sacarDeLista", {
     method: 'DELETE',
