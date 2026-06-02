@@ -96,18 +96,18 @@ export default function PruebaConexion() {
         Cerrar Sesión
       </button>
 
-      <div style={{ width: "100px", height: "25%", backgroundColor: "blue"}}>
-        <input style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+      <div style={{ width: "100px", height: "25%", backgroundColor: "blue", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around" }}>
+        <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         id="nombre"
         type="text"
         placeholder="Usuario"
       />
-      <input style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+      <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         id="contrasena"
         type="password"
         placeholder="Contraseña"
       />
-      <button style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasena") as HTMLInputElement).value;
@@ -118,18 +118,18 @@ export default function PruebaConexion() {
       </button>
       </div>
 
-        <div style={{ width: "100px", height: "25%", backgroundColor: "green"}}>
+        <div style={{ width: "100px", height: "25%", backgroundColor: "green", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around" }}>
         <input
-        id="nombreCC" style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+        id="nombreCC" style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         type="text"
         placeholder="Usuario"
       />
       <input
-        id="contrasenaCC" style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+        id="contrasenaCC" style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         type="password"
         placeholder="Contraseña"
       />
-      <button style={{ width: "100px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombreCC") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasenaCC") as HTMLInputElement).value;
