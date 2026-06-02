@@ -6,7 +6,7 @@ const verifyToken = (req, res, next) => {
         if (!token) {
             return res.status(401).json({ message: "Token no proporcionado" });
         }
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET || "dev_secret");
         req.id = decoded.id;
         next();
     } catch (error) {
