@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 let tokenF: string= "";
 
 export async function ponerEnLista(nombreP: string) {
-  console.log("Token actual:", tokenF)
+  console.log(tokenF)
   console.log("No te preocupes que me llamaron")
   if (tokenF != "") {
   const respuesta = await fetch("api/usuarios/ponerEnLista", {
