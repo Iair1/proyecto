@@ -88,7 +88,7 @@ export default function PruebaConexion() {
         Cerrar Sesión
       </button>
 
-      <div style={{ width: "100px", height: "25%", backgroundColor: "red"}}>
+      <div style={{ width: "100px", height: "25%", backgroundColor: "blue"}}>
         <input
         id="nombre"
         type="text"
