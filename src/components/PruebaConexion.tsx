@@ -120,12 +120,12 @@ export default function PruebaConexion() {
           backgroundColor: "black", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "space-around",
           borderRadius: "20px", border: "1px solid white" }}>
         <input
-        id="nombreCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+        id="nombreCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         type="text"
         placeholder="Usuario"
       />
       <input
-        id="contrasenaCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+        id="contrasenaCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         type="password"
         placeholder="Contraseña"
       />
