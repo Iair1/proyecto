@@ -8,7 +8,7 @@
     import VelocesYEnojados from "../assets/portadas/VelocesYEnojados.jpg"
 
 
-    import {ponerEnLista, sacarDeLista} from "./PruebaConexion"
+    import {ponerEnLista, sacarDeLista, cerrarSesion} from "./PruebaConexion"
 
     // ── Default: dark mode ON ──
     setDarkMode(true);
@@ -279,6 +279,52 @@
             }
         }
     }
+
+document.getElementById("cerrarS")?.addEventListener("click", desLogueo)
+function desLogueo() {
+    cerrarSesion() // Llamada a la función para cerrar sesión en el backend
+    for (const peli of peliculas) {
+        peli.miLista = false;
+        peli.pml = 0;
+    }
+    
+    ponePelis(); // rerenderizar con la lista actualizada
+};
+
+document.getElementById("btn-login")?.addEventListener("click", () => {
+    let formLogin = document.getElementById("login")
+    if(formLogin){
+        formLogin.style.display = "flex"
+    }
+    let formRegistrarse = document.getElementById("registrarse")
+    if(formRegistrarse){
+        formRegistrarse.style.display = "none"
+    }
+})
+
+document.getElementById("btn-registrarse")?.addEventListener("click", () => {
+    let formRegistrarse = document.getElementById("registrarse")
+    if(formRegistrarse){
+        formRegistrarse.style.display = "flex"
+    }
+    let formLogin = document.getElementById("login")
+    if(formLogin){
+        formLogin.style.display = "none"
+    }
+})
+document.getElementById("cerrarL")?.addEventListener("click", () => {
+    let formLogin = document.getElementById("login")
+    if(formLogin){
+        formLogin.style.display = "none"
+    }
+})
+document.getElementById("cerrarR")?.addEventListener("click", () => {
+    let formRegistrarse = document.getElementById("registrarse")
+    if(formRegistrarse){
+        formRegistrarse.style.display = "none"
+    }
+})
+
 /**/ 
 window.addEventListener("usuarioLogueado", (e: Event) => {
     console.log("Evento recibido en script.astro");
@@ -300,14 +346,7 @@ window.addEventListener("usuarioLogueado", (e: Event) => {
 });
 /**/
 
-window.addEventListener("desLogueo", (e: Event) => {
-    console.log("Evento de deslogueo recibido en script.astro");
-    for (const peli of peliculas) {
-        peli.miLista = false;
-        peli.pml = 0;
-    }
-    ponePelis(); // rerenderizar con la lista actualizada
-});
+
 
 
 </script>

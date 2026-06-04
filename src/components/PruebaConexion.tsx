@@ -3,6 +3,10 @@ import React, { useState } from 'react'
 
 let tokenF: string= "";
 
+export function cerrarSesion () {
+  tokenF = "";
+}
+
 export async function ponerEnLista(nombreP: string) {
   console.log("Token actual:", tokenF)
   console.log("No te preiugyocupes que me llamaron")
@@ -80,34 +84,25 @@ export default function PruebaConexion() {
     console.log(mensaje);
   }
 
-  const cerrarSesion = () => {
-    tokenF = "";
-    const evento = new CustomEvent("desLogueo");
-    window.dispatchEvent(evento);
-  }
+
   return (
 
     <div style={{ width: "100px", height: "100%" }}>
-      <button
-        id="cerrar sesion"
-        onClick={cerrarSesion}
-        style={{ width: "100px", height: "50%" }}
-      >
-        Cerrar Sesión
-      </button>
 
-      <div style={{ width: "100px", height: "25%", backgroundColor: "blue", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around" }}>
-        <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+      <div id="login" style={{ width: "30%", height: "60%", position: "absolute", top: "20%", left: "40%",zIndex: "999999",
+           backgroundColor: "black", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "space-around",
+          borderRadius: "20px", border: "1px solid white" }}> 
+        <input style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         id="nombre"
         type="text"
         placeholder="Usuario"
       />
-      <input style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+      <input style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         id="contrasena"
         type="password"
         placeholder="Contraseña"
       />
-      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+      <button style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasena") as HTMLInputElement).value;
@@ -116,20 +111,25 @@ export default function PruebaConexion() {
       >
         Iniciar Sesión
       </button>
+      <button id="cerrarL" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}>
+        Cerrar 
+      </button>
       </div>
 
-        <div style={{ width: "100px", height: "25%", backgroundColor: "green", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-around" }}>
+        <div id="registrarse" style={{ width: "30%", height: "60%", position: "absolute", top: "20%", left: "40%", zIndex: "999999",
+          backgroundColor: "black", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "space-around",
+          borderRadius: "20px", border: "1px solid white" }}>
         <input
-        id="nombreCC" style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+        id="nombreCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         type="text"
         placeholder="Usuario"
       />
       <input
-        id="contrasenaCC" style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
+        id="contrasenaCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white" }}
         type="password"
         placeholder="Contraseña"
       />
-      <button style={{ width: "85px", height: "25%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+      <button style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
         onClick={() => {
           const nombre = (document.getElementById("nombreCC") as HTMLInputElement).value;
           const contrasena = (document.getElementById("contrasenaCC") as HTMLInputElement).value;
@@ -137,6 +137,9 @@ export default function PruebaConexion() {
         }}
       >
         Crear Cuenta
+      </button>
+      <button id="cerrarR" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}>
+        Cerrar 
       </button>
       </div>
 

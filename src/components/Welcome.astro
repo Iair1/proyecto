@@ -6,6 +6,9 @@ import background2 from '../assets/background2.png';
     <nav class="navbar">
         <div class="logo">🎬 CINESTREAM</div>
         <div class="nav-right">
+            <button id="cerrarS" class="btnU">Cerrar Sesión</button>
+            <button id="btn-login" class="btnU">Iniciar Sesión</button>
+            <button id="btn-registrarse" class="btnU">Registrarse</button>
             <label class="toggle-wrapper" title="Modo oscuro">
                 <input type="checkbox" id="modoOscuro" class="toggle-input">
                 <span class="toggle-track">
@@ -34,7 +37,16 @@ import background2 from '../assets/background2.png';
         flex-shrink: 0;
         position: relative;
     }
-
+    .btnU {
+        background: transparent;
+        border: 1px solid #e50914;
+        color: #e50914;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.3s, color 0.3s;
+    }
     /* ── Navbar ── */
     .navbar {
         position: fixed;
