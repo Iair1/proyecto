@@ -87,7 +87,7 @@ export default function PruebaConexion() {
 
   return (
 
-    <div style={{ width: "100px", height: "100%" }}>
+    <div>
 
       <div id="login" style={{ width: "30%", height: "60%", position: "absolute", top: "20%", left: "40%",zIndex: "999999",
            backgroundColor: "black", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "space-around",
