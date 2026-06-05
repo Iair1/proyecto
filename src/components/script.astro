@@ -347,7 +347,10 @@ window.addEventListener("usuarioLogueado", (e: Event) => {
     console.log("Evento recibido en script.astro");
   const { mi_lista } = (e as CustomEvent).detail;
   // mi_lista es un array de { nombre: "..." } según tu query SQL
-    
+    for (const peli of peliculas) {
+        peli.miLista = false; // Reiniciar el estado de miLista
+        peli.pml = 0; // Reiniciar el contador de posición en Mi Lista
+    }
   console.log(mi_lista);
   for (const item of mi_lista) {
     console.log(item.nombre);
