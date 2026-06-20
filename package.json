@@ -11,7 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "start": "node api/index.js",
-    "test": "node --test"
+    "test": "npx vitest run"
 
   },
   "dependencies": {
@@ -26,8 +26,9 @@
 
     "@astrojs/react": "^4.0.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
     "vitest": "^2.0.0",
     "supertest": "^7.0.0"
   }
