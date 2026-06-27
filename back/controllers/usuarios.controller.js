@@ -7,10 +7,10 @@ const crearCuenta = async (req, res) => {
             return res.status(400).json({ message: "Debe completar todos los campos" });
         }
         const usuario = await UsuariosService.crearCuenta(nombre, contrasena);
-        res.status(201).json({ message: "Cuenta creada exitosamente", usuario });
+        res.status(201).json({ message: "Cuenta creada exitosamente", usuario: usuario.nombre });
     }
     catch(error){
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: "Este usuario ya existe" });
     }
 }
 
@@ -32,7 +32,7 @@ const iniciarSesion = async (req, res) => {
 const prueba = async(req, res)=>{
     try{
         const mensaje= await UsuariosService.prueba();
-        res.status(200).json({messaje: "Prueba exitosa", mensaje})
+        res.status(200).json({message: "Prueba exitosa", mensaje})
     }catch(error){
         res.status(500).json({ message: error.message });
     }
