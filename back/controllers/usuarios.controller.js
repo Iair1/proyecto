@@ -25,7 +25,7 @@ const iniciarSesion = async (req, res) => {
         res.status(200).json({ token: inf.token, mi_lista: inf.mi_lista });
     }
     catch(error){
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: "Usuario o contraseña incorrectos" });
     }
 }
 

@@ -1,28 +1,38 @@
-import { describe, it, expect, vi } from "vitest";
+// back/tests/usuarios.test.js
+import { describe, it, expect } from "vitest";
 import request from "supertest";
-
-// ── Mock de pg ANTES de importar la app ──
-vi.mock("pg", () => {
-  const Client = vi.fn().mockImplementation(() => ({
-    connect: vi.fn().mockResolvedValue(undefined),
-    query:   vi.fn(),
-    end:     vi.fn().mockResolvedValue(undefined),
-  }));
-  return { default: { Client } };
-});
-
 import app from "../../api/index.js";
 
-describe("GET /api/usuarios/prueba", () => {
+describe("POST /api/usuarios/iniciarSesion", () => {
 
-  it("devuelve 200 y el mensaje de éxito", async () => {
-    const res = await request(app).get("/api/usuarios/prueba");
+  it("devuelve 200 con token y mi_lista para credenciales válidas", async () => {
+    const res = await request(app)
+      .post("/api/usuarios/iniciarSesion")
+      .send({ nombre: "testUsuario", contrasena: "testContrasena" });
 
+    console.log("Status:", res.status);
+    console.log("Body:", res.body);
     expect(res.status).toBe(200);
-    expect(res.body).toEqual({
-      messaje: "Prueba exitosa",
-      mensaje: { HOLA: "PASASTE LA PRUEBA EXITOSAMENTE" }
-    });
+    expect(res.body).toHaveProperty("token");
+    expect(res.body).toHaveProperty("mi_lista");
+  });
+
+  it("devuelve 500 si el usuario no existe", async () => {
+    const res = await request(app)
+      .post("/api/usuarios/iniciarSesion")
+      .send({ nombre: "no_existe", contrasena: "cualquier_cosa" });
+
+    expect(res.status).toBe(500);
+    expect(res.body.message).toBe("Usuario o contraseña incorrectos");
+  });
+
+  it("devuelve 400 si faltan campos", async () => {
+    const res = await request(app)
+      .post("/api/usuarios/iniciarSesion")
+      .send({ nombre: "test.usuario" }); // sin contraseña
+
+    expect(res.status).toBe(400);
+    expect(res.body.message).toBe("Debe completar todos los campos");
   });
 
 });
