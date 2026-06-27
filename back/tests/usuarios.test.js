@@ -60,8 +60,11 @@ describe("POST /api/usuarios/registrarse", () => {
 });
 
 describe("POST /api/usuarios/ponerEnLista", () => {
-  console.log("Token temporal:", tokenTemporal);
+
   it("añade una película a la lista del usuario", async () => {
+    
+  console.log("TOKEN TEMPORAL:", tokenTemporal);
+
     const res = await request(app)
       .post("/api/usuarios/ponerEnLista")
       .set("authorization", `Bearer ${tokenTemporal}`)
@@ -72,7 +75,7 @@ describe("POST /api/usuarios/ponerEnLista", () => {
     console.log("Body:", res.body);
     expect(res.status).toBe(200);
     expect(res.body.message).toBe("Película añadida a la lista");
-    expect(res.body.resultado).toBe(expectany(Object));
+    expect(res.body.resultado).toEqual(expect.any(Object));;
   });
 
   it("intenta añadir una película ya existente en la lista", async () => {
