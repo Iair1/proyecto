@@ -1,0 +1,83 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, prueba-dev-ops]   # ✅ agregado prueba-dev-ops
+  pull_request:
+    branches: [main, prueba-dev-ops]
+
+jobs:
+  # ── JOB 1: Lint, test y build ──────────────────────────────────────────
+  ci:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    services:                     
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: test_user      
+          POSTGRES_PASSWORD: test_pass    
+          POSTGRES_DB: test_db           
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Correr tests
+        run: npm test
+        env:
+          DB_HOST: localhost
+          DB_NAME: test_db
+          DB_USER: test_user
+          DB_PASSWORD: test_pass
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          DB_SSL: 'false'
+
+      - name: Build de Astro
+        run: npm run build
+
+  # ── JOB 2: Deploy a Vercel (solo en push a main) ───────────────────────
+  deploy:
+    name: Deploy a Vercel
+    runs-on: ubuntu-latest
+    needs: ci                          # Solo corre si el job "ci" pasó
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Instalar dependencias        # ✅ faltaba esto
+        run: npm ci
+
+      - name: Instalar Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy a producción
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
