@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main, prueba-dev-ops]   # ✅ agregado prueba-dev-ops
+    branches: [master, prueba-dev-ops]   # ✅ agregado prueba-dev-ops
   pull_request:
-    branches: [main, prueba-dev-ops]
+    branches: [master, prueba-dev-ops]
 
 jobs:
   # ── JOB 1: Lint, test y build ──────────────────────────────────────────
