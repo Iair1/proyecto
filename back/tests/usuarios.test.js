@@ -7,28 +7,6 @@ import config from "../dbconfig.js";
 const {Client} = pkg;
 
 let tokenTemporal = null;
-describe("POST /api/usuarios/iniciarSesion", () => {
-
-  it("devuelve 200 con token y mi_lista para credenciales válidas", async () => {
-    const res = await request(app)
-      .post("/api/usuarios/iniciarSesion")
-      .send({ nombre: "testUsuario", contrasena: "testContrasena" });
-
-    tokenTemporal = res.body.token;
-    expect(res.status).toBe(200);
-    expect(res.body).toHaveProperty("token");
-    expect(res.body).toHaveProperty("mi_lista");
-  });
-
-  it("devuelve 500 si el usuario no existe", async () => {
-    const res = await request(app)
-      .post("/api/usuarios/iniciarSesion")
-      .send({ nombre: "no_existe", contrasena: "cualquier_cosa" });
-
-    expect(res.status).toBe(500);
-    expect(res.body.message).toBe("Usuario o contraseña incorrectos");
-  });
-});
 
 describe("POST /api/usuarios/registrarse", () => {
 
@@ -59,20 +37,37 @@ describe("POST /api/usuarios/registrarse", () => {
   });
 });
 
+describe("POST /api/usuarios/iniciarSesion", () => {
+
+  it("devuelve 200 con token y mi_lista para credenciales válidas", async () => {
+    const res = await request(app)
+      .post("/api/usuarios/iniciarSesion")
+      .send({ nombre: "usuario.temporal", contrasena: "contraseña.temporal" });
+
+    tokenTemporal = res.body.token;
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveProperty("token");
+    expect(res.body).toHaveProperty("mi_lista");
+  });
+
+  it("devuelve 500 si el usuario no existe", async () => {
+    const res = await request(app)
+      .post("/api/usuarios/iniciarSesion")
+      .send({ nombre: "no_existe", contrasena: "cualquier_cosa" });
+
+    expect(res.status).toBe(500);
+    expect(res.body.message).toBe("Usuario o contraseña incorrectos");
+  });
+});
+
 describe("POST /api/usuarios/ponerEnLista", () => {
 
   it("añade una película a la lista del usuario", async () => {
-    
-  console.log("TOKEN TEMPORAL:", tokenTemporal);
-
     const res = await request(app)
       .post("/api/usuarios/ponerEnLista")
       .set("authorization", `Bearer ${tokenTemporal}`)
-      .send({ peli: 1 });
+      .send({ peli: "Ti" });
 
-    
-    console.log("Status:", res.status);
-    console.log("Body:", res.body);
     expect(res.status).toBe(200);
     expect(res.body.message).toBe("Película añadida a la lista");
     expect(res.body.resultado).toEqual(expect.any(Object));;
@@ -82,8 +77,24 @@ describe("POST /api/usuarios/ponerEnLista", () => {
     const res = await request(app)
       .post("/api/usuarios/ponerEnLista")
       .set("authorization", `Bearer ${tokenTemporal}`)
-      .send({ peli: 1 });
+      .send({ peli: "Ti" });
     expect(res.status).toBe(500);
     expect(res.body.message).toBe("Película ya perteneciente a la lista");
+  });
+});
+
+describe("DELETE /api/usuarios/sacarDeLista", () => {
+
+  it("elimina una película de la lista del usuario", async () => {
+    const res = await request(app)
+      .delete("/api/usuarios/sacarDeLista")
+      .set("authorization", `Bearer ${tokenTemporal}`)
+      .send({ peli: "Ti" });
+
+    
+    console.log("Status:", res.status);
+    console.log("Body:", res.body);
+    expect(res.status).toBe(200);
+    expect(res.body.message).toBe("Película eliminada de la lista exitosamente");
   });
 });

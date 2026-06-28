@@ -48,7 +48,7 @@ const ponerEnLista = async(req, res)=>{
         const resultado = await UsuariosService.ponerEnLista(userid, peli);
         res.status(200).json({ message: "Película añadida a la lista", resultado });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: "Película ya perteneciente a la lista" });
     }
 }
 
@@ -60,7 +60,7 @@ const sacarDeLista = async(req, res)=>{
             return res.status(400).json({message: "Debe completar todos los campos"})
         }
         const resultado = await UsuariosService.sacarDeLista(userid, peli);
-        res.status(200).json({ message: "Película eliminada de la lista", resultado });
+        res.status(200).json({ message: "Película eliminada de la lista exitosamente", resultado });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
