@@ -230,7 +230,7 @@
             try{
             if (peli && peli.miLista) {
                 const respuesta = await sacarDeLista(peli.nombre) // Llamada a la función para quitar de la lista en el backend
-                if(respuesta.message && respuesta.message === "Película eliminada de la lista"){
+                if(respuesta.message && respuesta.message === "Película eliminada de la lista exitosamente"){
                     peli.miLista = false
                     document.getElementById(cosoimp + String(peli.pml))?.remove()
                 }else{
