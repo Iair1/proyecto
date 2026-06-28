@@ -1,5 +1,5 @@
 // back/tests/usuarios.test.js
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeAll } from "vitest";
 import request from "supertest";
 import app from "../../api/index.js";
 import pkg from "pg";
@@ -7,6 +7,50 @@ import config from "../dbconfig.js";
 const {Client} = pkg;
 
 let tokenTemporal = null;
+
+const ensureDatabaseSchema = async () => {
+  const client = new Client(config);
+  try {
+    await client.connect();
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS usuarios (
+        id SERIAL PRIMARY KEY,
+        nombre TEXT UNIQUE NOT NULL,
+        contrasena TEXT NOT NULL
+      );
+    `);
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS peliculas (
+        id SERIAL PRIMARY KEY,
+        nombre TEXT UNIQUE NOT NULL,
+        portada TEXT NOT NULL
+      );
+    `);
+
+    await client.query(`
+      CREATE TABLE IF NOT EXISTS mi_lista (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER NOT NULL REFERENCES usuarios(id),
+        peli_id INTEGER NOT NULL REFERENCES peliculas(id),
+        UNIQUE (user_id, peli_id)
+      );
+    `);
+    await client.query(`
+      INSERT INTO peliculas (nombre, portada)
+      VALUES 
+        ('Ti', 'https://m.media-amazon.com/images/I/71rNJQ2g-EL._AC_SY679_.jpg')
+      ON CONFLICT (nombre) DO NOTHING;
+    `);
+  } finally {
+    await client.end();
+  }
+};
+
+beforeAll(async () => {
+  await ensureDatabaseSchema();
+});
 
 describe("POST /api/usuarios/registrarse", () => {
 
