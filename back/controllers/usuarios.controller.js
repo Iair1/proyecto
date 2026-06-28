@@ -60,7 +60,7 @@ const sacarDeLista = async(req, res)=>{
             return res.status(400).json({message: "Debe completar todos los campos"})
         }
         const resultado = await UsuariosService.sacarDeLista(userid, peli);
-        res.status(200).json({ message: "TU TEST HA FALLADO JAJAJAJAJJA" /*Este test esta hecho para fallar a proposito, los demas deberian funcionar. Si estas leyendo el archivo buscando errores este no es uno*/    /*"Película eliminada de la lista exitosamente"*/, resultado });
+        res.status(200).json({ message: "Película eliminada de la lista exitosamente", resultado });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
