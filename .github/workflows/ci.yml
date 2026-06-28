@@ -48,7 +48,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER_TEST }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD_TEST }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          DB_SSL: true
+          DB_SSL: 'true'
 
       - name: Build de Astro
         run: npm run build
