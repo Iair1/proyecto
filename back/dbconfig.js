@@ -4,9 +4,9 @@ const config = {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     port: 5432,
-    ssl: process.env.DB_HOST === 'localhost' 
-        ? false                              // sin SSL en CI/local
-        : { rejectUnauthorized: false }      // con SSL en producción
+    ssl: process.env.DB_HOST === 'localhost'
+        ? false                            // Docker en CI sin SSL
+        : { rejectUnauthorized: false }    // Neon siempre con SSL
 }
 
 
