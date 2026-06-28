@@ -5,5 +5,7 @@ import { loadEnv } from "vite";
 export default defineConfig(({ mode }) => ({
   test: {
     env: loadEnv(mode, process.cwd(), ""),
+    pool: 'forks',
+    poolOptions: { forks: { singleFork: true } }
   },
 }));
