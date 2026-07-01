@@ -97,7 +97,16 @@ describe("POST /api/usuarios/iniciarSesion", () => {
   it("devuelve 500 si el usuario no existe", async () => {
     const res = await request(app)
       .post("/api/usuarios/iniciarSesion")
-      .send({ nombre: "no_existe", contrasena: "cualquier_cosa" });
+      .send({ nombre: "no_existe", contrasena: "contraseña.temporal" });
+
+    expect(res.status).toBe(500);
+    expect(res.body.message).toBe("Usuario o contraseña incorrectos");
+  });
+
+  it("devuelve 500 si la contraseña es incorrecta", async () => {
+    const res = await request(app)
+      .post("/api/usuarios/iniciarSesion")
+      .send({ nombre: "usuario.temporal", contrasena: "contraseña.incorrecta" });
 
     expect(res.status).toBe(500);
     expect(res.body.message).toBe("Usuario o contraseña incorrectos");
@@ -124,6 +133,14 @@ describe("POST /api/usuarios/ponerEnLista", () => {
       .send({ peli: "Ti" });
     expect(res.status).toBe(500);
     expect(res.body.message).toBe("Película ya perteneciente a la lista");
+  });
+
+  it("intenta añadir una película no existente a la lista", async () => {
+    const res = await request(app)
+      .post("/api/usuarios/ponerEnLista")
+      .set("authorization", `Bearer ${tokenTemporal}`)
+      .send({ peli: "Spiderman, aventuras por Paraguay" });
+    expect(res.status).toBe(500);
   });
 });
 
