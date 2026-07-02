@@ -11,7 +11,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "start": "node api/index.js",
-    "test": "npx vitest run"
+    "test": "npx vitest run",
+    "test:e2e": "npx playwright test",
+    "test:e2e:local": "bash scripts/run-e2e.sh"
 
   },
   "dependencies": {
@@ -30,6 +32,7 @@
   },
   "devDependencies": {
     "vitest": "^2.0.0",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "@playwright/test": "^1.49.0"
   }
 }
