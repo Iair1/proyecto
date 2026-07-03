@@ -3,7 +3,8 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Catálogo — búsqueda y filtros', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/');  
+    await page.locator('#sacaraside').click();
   });
 
   test('buscar por nombre muestra solo las coincidencias', async ({ page }) => {
