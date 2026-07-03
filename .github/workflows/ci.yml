@@ -5,7 +5,9 @@ on:
     branches: [master, prueba-dev-ops]
   pull_request:
     branches: [master, prueba-dev-ops]
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
 jobs:
   # ── JOB 1: Lint, test y build ──────────────────────────────────────────
   ci:
