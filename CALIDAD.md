@@ -12,5 +12,8 @@ Tests CI/CD:
 8. Usuario intenta añadir una película no existente a su lista --> en caso de que el front por alguna razón muestra una película no presente en la base de datos, reciba la notificación de que no existe.
 9. Usuario elimina una película de su base de datos --> el front es notificado que la película fue eliminada una vez ejecutado el query.
 
-
-
+También usamos tests E2E, ya que son los que hacen que sepamos que los botones del frontend estan presentes y funcionan.
+Tests E2E:
+1. Usuario busca una película existente por nombre. --> Solo esta presente la película.
+2. Usuario busca película no existente. --> La págino no muestra ninguna película.
+3. Usuario busca películas de romance --> Página solo muestra películas de ese género.
