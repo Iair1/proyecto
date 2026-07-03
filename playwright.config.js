@@ -16,8 +16,8 @@ export default defineConfig({
   ],
 
 webServer: [
-  { command: 'node api/index.js', url: 'http://localhost:3000/api', reuseExistingServer: !process.env.CI },
-  { command: 'npm run dev', url: 'http://localhost:4321', reuseExistingServer: !process.env.CI },
+  { command: 'node api/index.js', url: 'http://localhost:3000/api', reuseExistingServer: true},
+  { command: 'npm run dev', url: 'http://localhost:4321', reuseExistingServer: true },
 
     { 
       command: 'npm run dev', 
