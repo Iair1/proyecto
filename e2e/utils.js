@@ -9,9 +9,13 @@ export async function registrarUsuarioViaAPI(request, nombre, contrasena) {
   });
 }
 
+export async function esperarAppLista(page) {
+  await page.goto('/');
+  await page.locator('.plcl').first().waitFor();
+}
 
 export async function loginViaUI(page, nombre, contrasena) {
-  await page.goto('/');
+  await esperarAppLista(page);
   await page.getByRole('button', { name: 'Iniciar Sesión' }).click();
 
   const login = page.locator('#login');

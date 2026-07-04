@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [master, prueba-dev-ops]
+    branches: [master, prueba-dev-ops, test-usuario-funcines]
   pull_request:
-    branches: [master, prueba-dev-ops]
+    branches: [master, prueba-dev-ops, test-usuario-funcines]
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true

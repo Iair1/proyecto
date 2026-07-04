@@ -1,13 +1,13 @@
 // e2e/auth.spec.js
 import { test, expect } from '@playwright/test';
-import { loginViaUI } from './utils.js';
+import { loginViaUI, esperarAppLista } from './utils.js';
 
 const USUARIO = 'e2e_usuario';
 const CONTRASENA = 'e2e_contrasena_123';
 
 test.describe('Autenticación', () => {
   test('un usuario nuevo puede registrarse y luego iniciar sesión', async ({ page }) => {
-    await page.goto('/');
+    await esperarAppLista(page);
 
 
     await page.getByRole('button', { name: 'Registrarse' }).click();
@@ -36,7 +36,7 @@ test.describe('Autenticación', () => {
   });
 
   test('con contraseña incorrecta no se otorga acceso a Mi Lista', async ({ page }) => {
-    await page.goto('/');
+    await esperarAppLista(page);
     await page.getByRole('button', { name: 'Iniciar Sesión' }).click();
 
     const login = page.locator('#login');
