@@ -280,19 +280,6 @@
         }
     }
 
-function vaciarLogin(){
-    const txt = document.getElementById("nombre") as HTMLInputElement
-    txt.value = ""
-    const pass = document.getElementById("contrasena") as HTMLInputElement
-    pass.value = ""
-}
-function vaciarRegistro(){
-    const txt = document.getElementById("nombreCC") as HTMLInputElement
-    txt.value = ""
-    const pass = document.getElementById("contrasenaCC") as HTMLInputElement
-    pass.value = ""
-}
-
 document.getElementById("cerrarS")?.addEventListener("click", desLogueo)
 function desLogueo() {
     cerrarSesion() // Llamada a la función para cerrar sesión en el backend
@@ -303,44 +290,6 @@ function desLogueo() {
     
     ponePelis(); // rerenderizar con la lista actualizada
 };
-
-document.getElementById("btn-login")?.addEventListener("click", () => {
-    let formLogin = document.getElementById("login")
-    if(formLogin){
-        formLogin.style.display = "flex"
-    }
-    let formRegistrarse = document.getElementById("registrarse")
-    if(formRegistrarse){
-        formRegistrarse.style.display = "none"
-        vaciarRegistro()
-    }
-})
-
-document.getElementById("btn-registrarse")?.addEventListener("click", () => {
-    let formRegistrarse = document.getElementById("registrarse")
-    if(formRegistrarse){
-        formRegistrarse.style.display = "flex"
-    }
-    let formLogin = document.getElementById("login")
-    if(formLogin){
-        formLogin.style.display = "none"
-        vaciarLogin()
-    }
-})
-document.getElementById("cerrarL")?.addEventListener("click", () => {
-    let formLogin = document.getElementById("login")
-    if(formLogin){
-        formLogin.style.display = "none"
-        vaciarLogin()
-    }
-})
-document.getElementById("cerrarR")?.addEventListener("click", () => {
-    let formRegistrarse = document.getElementById("registrarse")
-    if(formRegistrarse){
-        formRegistrarse.style.display = "none"
-        vaciarRegistro()
-    }
-})
 
 /**/ 
 window.addEventListener("usuarioLogueado", (e: Event) => {
