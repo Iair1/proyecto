@@ -36,6 +36,8 @@ export async function sacarDeLista(nombreP: string) {
   }
 }
 
+// Estado de un formulario: si está enviando la petición, y el último
+// mensaje de error o de éxito que hay que mostrarle al usuario.
 type EstadoFormulario = {
   cargando: boolean;
   error: string | null;
@@ -45,6 +47,8 @@ type EstadoFormulario = {
 const ESTADO_INICIAL: EstadoFormulario = { cargando: false, error: null, exito: null };
 
 export default function PruebaConexion() {
+  // Inputs controlados por React: así "vaciar" el formulario es
+  // simplemente volver el estado a "", sin pelear con el DOM.
   const [nombre, setNombre] = useState("");
   const [contrasena, setContrasena] = useState("");
   const [nombreCC, setNombreCC] = useState("");
@@ -53,8 +57,11 @@ export default function PruebaConexion() {
   const [loginEstado, setLoginEstado] = useState<EstadoFormulario>(ESTADO_INICIAL);
   const [registroEstado, setRegistroEstado] = useState<EstadoFormulario>(ESTADO_INICIAL);
 
+  // Qué modal está visible ahora mismo. Reemplaza los "style.display" manuales.
   const [modalActivo, setModalActivo] = useState<"login" | "registro" | null>(null);
 
+  // Referencia al timeout que cierra el modal automáticamente tras un éxito,
+  // para poder cancelarlo si el usuario cierra el modal a mano antes.
   const cierreAutomatico = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cancelarCierreAutomatico = () => {
     if (cierreAutomatico.current) {
@@ -75,6 +82,9 @@ export default function PruebaConexion() {
     setRegistroEstado(ESTADO_INICIAL);
   };
 
+  // Los botones "Iniciar Sesión" / "Registrarse" del header viven en otro
+  // componente (Welcome.astro), fuera de este árbol de React, así que los
+  // enganchamos por id igual que hacía antes script.astro.
   useEffect(() => {
     const abrirLogin = () => {
       cancelarCierreAutomatico();
@@ -97,6 +107,7 @@ export default function PruebaConexion() {
       btnRegistrarse?.removeEventListener("click", abrirRegistro);
       cancelarCierreAutomatico();
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCerrarLogin = () => {
@@ -129,6 +140,8 @@ export default function PruebaConexion() {
       const data = await response.json();
 
       if (!response.ok) {
+        // El back ya nos manda un mensaje ("Usuario o contraseña incorrectos",
+        // "Debe completar todos los campos", etc): se lo mostramos tal cual.
         setLoginEstado({ cargando: false, error: data.message || "No se pudo iniciar sesión.", exito: null });
         return;
       }
@@ -143,6 +156,7 @@ export default function PruebaConexion() {
       setNombre("");
       setContrasena("");
 
+      // Dejamos ver el mensaje de éxito un instante y recién ahí cerramos.
       cierreAutomatico.current = setTimeout(() => {
         setModalActivo(null);
         setLoginEstado(ESTADO_INICIAL);
@@ -170,6 +184,7 @@ export default function PruebaConexion() {
       const data = await response.json();
 
       if (!response.ok) {
+        // Por ejemplo "Este usuario ya existe" o "Debe completar todos los campos".
         setRegistroEstado({ cargando: false, error: data.message || "No se pudo crear la cuenta.", exito: null });
         return;
       }
@@ -179,6 +194,8 @@ export default function PruebaConexion() {
       setNombreCC("");
       setContrasenaCC("");
 
+      // Buena UX: tras registrarse pasamos directo al login con el usuario
+      // ya cargado, en vez de dejar al usuario adivinando qué hacer ahora.
       cierreAutomatico.current = setTimeout(() => {
         setRegistroEstado(ESTADO_INICIAL);
         setNombre(nombreCreado);
