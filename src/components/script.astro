@@ -9,6 +9,7 @@
 
 
     import {ponerEnLista, sacarDeLista, cerrarSesion} from "./PruebaConexion"
+    import {mostrarNotificacion} from "./notificaciones"
 
     // ── Default: dark mode ON ──
     setDarkMode(true);
@@ -212,11 +213,12 @@
                     // Show Mi Lista section
                     const sc = document.getElementById("sc-milista")
                     if (sc) sc.style.display = "flex" 
+                    mostrarNotificacion(`"${peli.nombre}" se agregó a tu lista`, "success")
                 } else{
-                    alert("No se pudo conectar a la base de datos")
+                    mostrarNotificacion("No se pudo agregar la película a la lista", "error")
                 }
                 }  catch(error){
-                    alert("Ocurrió un error al conectar con la base de datos, inice sesion")
+                    mostrarNotificacion("Debe iniciar sesión para agregar películas a la lista", "error")
                 }
             }
             ml.remove()
@@ -233,12 +235,13 @@
                 if(respuesta.message && respuesta.message === "Película eliminada de la lista exitosamente"){
                     peli.miLista = false
                     document.getElementById(cosoimp + String(peli.pml))?.remove()
+                    mostrarNotificacion(`"${peli.nombre}" se quitó de tu lista`, "success")
                 }else{
-                    alert("No se pudo conectar a la base de datos")
+                    mostrarNotificacion("No se pudo quitar la película de la lista", "error")
                 }
             }
             }catch(error){
-                alert("Ocurrió un error al conectar con la base de datos, inicie sesion")
+                mostrarNotificacion("Debe iniciar sesión para modificar tu lista", "error")
             }
             ml.remove()
         })
@@ -280,6 +283,19 @@
         }
     }
 
+function vaciarLogin(){
+    const txt = document.getElementById("nombre") as HTMLInputElement
+    txt.value = ""
+    const pass = document.getElementById("contrasena") as HTMLInputElement
+    pass.value = ""
+}
+function vaciarRegistro(){
+    const txt = document.getElementById("nombreCC") as HTMLInputElement
+    txt.value = ""
+    const pass = document.getElementById("contrasenaCC") as HTMLInputElement
+    pass.value = ""
+}
+
 document.getElementById("cerrarS")?.addEventListener("click", desLogueo)
 function desLogueo() {
     cerrarSesion() // Llamada a la función para cerrar sesión en el backend
@@ -289,7 +305,46 @@ function desLogueo() {
     }
     
     ponePelis(); // rerenderizar con la lista actualizada
+    mostrarNotificacion("Sesión cerrada correctamente", "success");
 };
+
+document.getElementById("btn-login")?.addEventListener("click", () => {
+    let formLogin = document.getElementById("login")
+    if(formLogin){
+        formLogin.style.display = "flex"
+    }
+    let formRegistrarse = document.getElementById("registrarse")
+    if(formRegistrarse){
+        formRegistrarse.style.display = "none"
+        vaciarRegistro()
+    }
+})
+
+document.getElementById("btn-registrarse")?.addEventListener("click", () => {
+    let formRegistrarse = document.getElementById("registrarse")
+    if(formRegistrarse){
+        formRegistrarse.style.display = "flex"
+    }
+    let formLogin = document.getElementById("login")
+    if(formLogin){
+        formLogin.style.display = "none"
+        vaciarLogin()
+    }
+})
+document.getElementById("cerrarL")?.addEventListener("click", () => {
+    let formLogin = document.getElementById("login")
+    if(formLogin){
+        formLogin.style.display = "none"
+        vaciarLogin()
+    }
+})
+document.getElementById("cerrarR")?.addEventListener("click", () => {
+    let formRegistrarse = document.getElementById("registrarse")
+    if(formRegistrarse){
+        formRegistrarse.style.display = "none"
+        vaciarRegistro()
+    }
+})
 
 /**/ 
 window.addEventListener("usuarioLogueado", (e: Event) => {

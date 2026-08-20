@@ -1,296 +1,190 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useState } from 'react'
+import { mostrarNotificacion } from './notificaciones'
 
-let tokenF: string = "";
 
-export function cerrarSesion() {
+let tokenF: string= "";
+
+export function cerrarSesion () {
   tokenF = "";
 }
 
 export async function ponerEnLista(nombreP: string) {
   console.log("Token actual:", tokenF)
+  console.log("No te preiugyocupes que me llamaron")
   if (tokenF != "") {
-    const respuesta = await fetch("api/usuarios/ponerEnLista", {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
-      body: JSON.stringify({ peli: nombreP })
-    });
+  const respuesta = await fetch("api/usuarios/ponerEnLista", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'authorization':`Bearer ${tokenF}`},
+    body: JSON.stringify({peli: nombreP })
+  });
     let r = await respuesta.json();
     console.log(r);
     return r;
-  } else {
+  } else{
     console.log("Inicie sesion")
   }
 }
 
 export async function sacarDeLista(nombreP: string) {
   console.log("Token actual:", tokenF)
+  console.log("No te preocupes que me llamaron")
   if (tokenF != "") {
-    const respuesta = await fetch("api/usuarios/sacarDeLista", {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
-      body: JSON.stringify({ peli: nombreP })
-    });
+  const respuesta = await fetch("api/usuarios/sacarDeLista", {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', 'authorization': `Bearer ${tokenF}` },
+    body: JSON.stringify({peli: nombreP })
+  });
     let r = await respuesta.json();
     console.log(r);
     return r;
   }
 }
 
-// Estado de un formulario: si está enviando la petición, y el último
-// mensaje de error o de éxito que hay que mostrarle al usuario.
-type EstadoFormulario = {
-  cargando: boolean;
-  error: string | null;
-  exito: string | null;
-}
-
-const ESTADO_INICIAL: EstadoFormulario = { cargando: false, error: null, exito: null };
-
 export default function PruebaConexion() {
-  // Inputs controlados por React: así "vaciar" el formulario es
-  // simplemente volver el estado a "", sin pelear con el DOM.
-  const [nombre, setNombre] = useState("");
-  const [contrasena, setContrasena] = useState("");
-  const [nombreCC, setNombreCC] = useState("");
-  const [contrasenaCC, setContrasenaCC] = useState("");
+  const [resultado, setResultado] = useState<string>("");
 
-  const [loginEstado, setLoginEstado] = useState<EstadoFormulario>(ESTADO_INICIAL);
-  const [registroEstado, setRegistroEstado] = useState<EstadoFormulario>(ESTADO_INICIAL);
-
-  // Qué modal está visible ahora mismo. Reemplaza los "style.display" manuales.
-  const [modalActivo, setModalActivo] = useState<"login" | "registro" | null>(null);
-
-  // Referencia al timeout que cierra el modal automáticamente tras un éxito,
-  // para poder cancelarlo si el usuario cierra el modal a mano antes.
-  const cierreAutomatico = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cancelarCierreAutomatico = () => {
-    if (cierreAutomatico.current) {
-      clearTimeout(cierreAutomatico.current);
-      cierreAutomatico.current = null;
+  const handleClick = async () => {
+    try {
+      const res = await fetch("/api/usuarios/prueba");
+      const data = await res.json();
+      console.log(data);
+      setResultado(JSON.stringify(data));
+    } catch (error) {
+      console.error("Error:", error);
     }
   };
-
-  const limpiarLogin = () => {
-    setNombre("");
-    setContrasena("");
-    setLoginEstado(ESTADO_INICIAL);
-  };
-
-  const limpiarRegistro = () => {
-    setNombreCC("");
-    setContrasenaCC("");
-    setRegistroEstado(ESTADO_INICIAL);
-  };
-
-  // Los botones "Iniciar Sesión" / "Registrarse" del header viven en otro
-  // componente (Welcome.astro), fuera de este árbol de React, así que los
-  // enganchamos por id igual que hacía antes script.astro.
-  useEffect(() => {
-    const abrirLogin = () => {
-      cancelarCierreAutomatico();
-      limpiarRegistro();
-      setModalActivo("login");
-    };
-    const abrirRegistro = () => {
-      cancelarCierreAutomatico();
-      limpiarLogin();
-      setModalActivo("registro");
-    };
-
-    const btnLogin = document.getElementById("btn-login");
-    const btnRegistrarse = document.getElementById("btn-registrarse");
-    btnLogin?.addEventListener("click", abrirLogin);
-    btnRegistrarse?.addEventListener("click", abrirRegistro);
-
-    return () => {
-      btnLogin?.removeEventListener("click", abrirLogin);
-      btnRegistrarse?.removeEventListener("click", abrirRegistro);
-      cancelarCierreAutomatico();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const handleCerrarLogin = () => {
-    cancelarCierreAutomatico();
-    setModalActivo(null);
-    limpiarLogin();
-  };
-
-  const handleCerrarRegistro = () => {
-    cancelarCierreAutomatico();
-    setModalActivo(null);
-    limpiarRegistro();
-  };
-
-  const iniciarSesion = async () => {
-    if (loginEstado.cargando) return;
-    if (!nombre.trim() || !contrasena) {
-      setLoginEstado({ cargando: false, error: "Completá usuario y contraseña.", exito: null });
+  const iniciarSesion = async (nombre: string, contrasena: string) => {
+    if (!nombre || !contrasena) {
+      mostrarNotificacion("Debe completar usuario y contraseña", "error");
       return;
     }
-
-    setLoginEstado({ cargando: true, error: null, exito: null });
-
     try {
       const response = await fetch("/api/usuarios/iniciarSesion", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ nombre, contrasena }),
-      });
+      })
       const data = await response.json();
 
       if (!response.ok) {
-        // El back ya nos manda un mensaje ("Usuario o contraseña incorrectos",
-        // "Debe completar todos los campos", etc): se lo mostramos tal cual.
-        setLoginEstado({ cargando: false, error: data.message || "No se pudo iniciar sesión.", exito: null });
+        mostrarNotificacion(data.message || "Usuario o contraseña incorrectos", "error");
         return;
       }
 
       tokenF = data.token;
+      /**/
       const evento = new CustomEvent("usuarioLogueado", {
-        detail: { mi_lista: data.mi_lista ?? [], token: data.token }
+        detail: { mi_lista: data.mi_lista, token: data.token }
       });
       window.dispatchEvent(evento);
+      /* */
 
-      setLoginEstado({ cargando: false, error: null, exito: `¡Bienvenido/a, ${nombre}!` });
-      setNombre("");
-      setContrasena("");
+      mostrarNotificacion(`¡Bienvenido/a, ${nombre}!`, "success");
 
-      // Dejamos ver el mensaje de éxito un instante y recién ahí cerramos.
-      cierreAutomatico.current = setTimeout(() => {
-        setModalActivo(null);
-        setLoginEstado(ESTADO_INICIAL);
-      }, 1200);
+      // Limpiar los campos y cerrar el formulario tras iniciar sesión correctamente
+      const inputNombre = document.getElementById("nombre") as HTMLInputElement | null;
+      const inputContrasena = document.getElementById("contrasena") as HTMLInputElement | null;
+      if (inputNombre) inputNombre.value = "";
+      if (inputContrasena) inputContrasena.value = "";
+      const formLogin = document.getElementById("login");
+      if (formLogin) formLogin.style.display = "none";
     } catch (error) {
-      setLoginEstado({ cargando: false, error: "No se pudo conectar con el servidor. Intentá de nuevo.", exito: null });
+      mostrarNotificacion("No se pudo conectar con el servidor. Intente nuevamente.", "error");
     }
-  };
+  }
 
-  const crearCuenta = async () => {
-    if (registroEstado.cargando) return;
-    if (!nombreCC.trim() || !contrasenaCC) {
-      setRegistroEstado({ cargando: false, error: "Completá usuario y contraseña.", exito: null });
+  const crearCuenta = async (nombre: string, contrasena: string) => {
+    if (!nombre || !contrasena) {
+      mostrarNotificacion("Debe completar usuario y contraseña", "error");
       return;
     }
-
-    setRegistroEstado({ cargando: true, error: null, exito: null });
-
     try {
       const response = await fetch("/api/usuarios/registrarse", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre: nombreCC, contrasena: contrasenaCC }),
-      });
-      const data = await response.json();
+        body: JSON.stringify({ nombre, contrasena }),
+      })
+      const mensaje = await response.json();
 
       if (!response.ok) {
-        // Por ejemplo "Este usuario ya existe" o "Debe completar todos los campos".
-        setRegistroEstado({ cargando: false, error: data.message || "No se pudo crear la cuenta.", exito: null });
+        mostrarNotificacion(mensaje.message || "No se pudo crear la cuenta", "error");
         return;
       }
 
-      const nombreCreado = nombreCC;
-      setRegistroEstado({ cargando: false, error: null, exito: "¡Cuenta creada con éxito!" });
-      setNombreCC("");
-      setContrasenaCC("");
+      mostrarNotificacion(mensaje.message || "Cuenta creada exitosamente. Ya podés iniciar sesión.", "success");
 
-      // Buena UX: tras registrarse pasamos directo al login con el usuario
-      // ya cargado, en vez de dejar al usuario adivinando qué hacer ahora.
-      cierreAutomatico.current = setTimeout(() => {
-        setRegistroEstado(ESTADO_INICIAL);
-        setNombre(nombreCreado);
-        setModalActivo("login");
-      }, 1300);
+      // Limpiar los campos y cerrar el formulario tras registrarse correctamente
+      const inputNombre = document.getElementById("nombreCC") as HTMLInputElement | null;
+      const inputContrasena = document.getElementById("contrasenaCC") as HTMLInputElement | null;
+      if (inputNombre) inputNombre.value = "";
+      if (inputContrasena) inputContrasena.value = "";
+      const formRegistrarse = document.getElementById("registrarse");
+      if (formRegistrarse) formRegistrarse.style.display = "none";
     } catch (error) {
-      setRegistroEstado({ cargando: false, error: "No se pudo conectar con el servidor. Intentá de nuevo.", exito: null });
+      mostrarNotificacion("No se pudo conectar con el servidor. Intente nuevamente.", "error");
     }
-  };
+  }
 
-  const inputStyle: React.CSSProperties = {
-    margin: "0", padding: "0 10px", width: "71%", height: "36px", borderRadius: "5px",
-    backgroundColor: "black", border: "1px solid white", color: "white", fontSize: "14px", boxSizing: "border-box"
-  };
-  const botonStyle = (cargando: boolean): React.CSSProperties => ({
-    margin: "0", padding: "0", width: "71%", height: "36px", borderRadius: "5px",
-    backgroundColor: "black", border: "1px solid #e50914", color: "white", fontSize: "14px",
-    cursor: cargando ? "default" : "pointer"
-  });
-  const botonSecundarioStyle: React.CSSProperties = {
-    margin: "0", padding: "0", width: "71%", height: "32px", borderRadius: "5px",
-    backgroundColor: "black", border: "1px solid white", color: "#aaa", fontSize: "13px", cursor: "pointer"
-  };
-  const modalStyle = (visible: boolean): React.CSSProperties => ({
-    width: "30%", minWidth: "280px", position: "absolute", top: "20%", left: "40%", zIndex: 999999,
-    backgroundColor: "black", display: visible ? "flex" : "none", flexDirection: "column", alignItems: "center",
-    justifyContent: "center", gap: "14px", padding: "32px 0", borderRadius: "20px", border: "1px solid white"
-  });
-  const tituloStyle: React.CSSProperties = { color: "white", fontSize: "18px", letterSpacing: "1px", margin: "0 0 6px" };
-  const mensajeErrorStyle: React.CSSProperties = { color: "#ff6b6b", fontSize: "13px", margin: "0", width: "71%", textAlign: "center" };
-  const mensajeExitoStyle: React.CSSProperties = { color: "#2ecc71", fontSize: "13px", margin: "0", width: "71%", textAlign: "center" };
 
   return (
+
     <div>
-      <div id="login" style={modalStyle(modalActivo === "login")}>
-        <p style={tituloStyle}>Iniciar sesión</p>
-        <input
-          style={inputStyle}
-          id="nombre"
-          type="text"
-          placeholder="Usuario"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          disabled={loginEstado.cargando}
-        />
-        <input
-          style={inputStyle}
-          id="contrasena"
-          type="password"
-          placeholder="Contraseña"
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") iniciarSesion(); }}
-          disabled={loginEstado.cargando}
-        />
-        {loginEstado.error && <p style={mensajeErrorStyle}>{loginEstado.error}</p>}
-        {loginEstado.exito && <p style={mensajeExitoStyle}>{loginEstado.exito}</p>}
-        <button style={botonStyle(loginEstado.cargando)} disabled={loginEstado.cargando} onClick={iniciarSesion}>
-          {loginEstado.cargando ? "Iniciando sesión..." : "Iniciar Sesión"}
-        </button>
-        <button id="cerrarL" style={botonSecundarioStyle} onClick={handleCerrarLogin}>
-          Cerrar
-        </button>
+
+      <div id="login" style={{ width: "30%", height: "60%", position: "absolute", top: "20%", left: "40%",zIndex: "999999",
+           backgroundColor: "black", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "space-around",
+          borderRadius: "20px", border: "1px solid white" }}> 
+        <input style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+        id="nombre"
+        type="text"
+        placeholder="Usuario"
+      />
+      <input style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+        id="contrasena"
+        type="password"
+        placeholder="Contraseña"
+      />
+      <button style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+        onClick={() => {
+          const nombre = (document.getElementById("nombre") as HTMLInputElement).value;
+          const contrasena = (document.getElementById("contrasena") as HTMLInputElement).value;
+          iniciarSesion(nombre, contrasena);
+        }}
+      >
+        Iniciar Sesión
+      </button>
+      <button id="cerrarL" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}>
+        Cerrar 
+      </button>
       </div>
 
-      <div id="registrarse" style={modalStyle(modalActivo === "registro")}>
-        <p style={tituloStyle}>Crear cuenta</p>
+        <div id="registrarse" style={{ width: "30%", height: "60%", position: "absolute", top: "20%", left: "40%", zIndex: "999999",
+          backgroundColor: "black", display: "none", flexDirection: "column", alignItems: "center", justifyContent: "space-around",
+          borderRadius: "20px", border: "1px solid white" }}>
         <input
-          id="nombreCC"
-          style={inputStyle}
-          type="text"
-          placeholder="Usuario"
-          value={nombreCC}
-          onChange={(e) => setNombreCC(e.target.value)}
-          disabled={registroEstado.cargando}
-        />
-        <input
-          id="contrasenaCC"
-          style={inputStyle}
-          type="password"
-          placeholder="Contraseña"
-          value={contrasenaCC}
-          onChange={(e) => setContrasenaCC(e.target.value)}
-          onKeyDown={(e) => { if (e.key === "Enter") crearCuenta(); }}
-          disabled={registroEstado.cargando}
-        />
-        {registroEstado.error && <p style={mensajeErrorStyle}>{registroEstado.error}</p>}
-        {registroEstado.exito && <p style={mensajeExitoStyle}>{registroEstado.exito}</p>}
-        <button style={botonStyle(registroEstado.cargando)} disabled={registroEstado.cargando} onClick={crearCuenta}>
-          {registroEstado.cargando ? "Creando cuenta..." : "Crear Cuenta"}
-        </button>
-        <button id="cerrarR" style={botonSecundarioStyle} onClick={handleCerrarRegistro}>
-          Cerrar
-        </button>
+        id="nombreCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+        type="text"
+        placeholder="Usuario"
+      />
+      <input
+        id="contrasenaCC" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+        type="password"
+        placeholder="Contraseña"
+      />
+      <button style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}
+        onClick={() => {
+          const nombre = (document.getElementById("nombreCC") as HTMLInputElement).value;
+          const contrasena = (document.getElementById("contrasenaCC") as HTMLInputElement).value;
+          crearCuenta(nombre, contrasena);
+        }}
+      >
+        Crear Cuenta
+      </button>
+      <button id="cerrarR" style={{  margin: "0", padding: "0", width: "71%", height: "20%", borderRadius: "5px", backgroundColor: "black", border: "1px solid white", color: "white" }}>
+        Cerrar 
+      </button>
       </div>
-    </div>
+
+  </div>
+
   );
 }
